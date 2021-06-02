@@ -21,6 +21,10 @@ background-color: green;
 export const GameboardGridHit = styled(GameboardGrid)`
 background-color: red;
 `
+
+export const GameboardGridSunk = styled(GameboardGrid)`
+background-color: maroon;
+`
 export const GameboardGridOccupied = styled(GameboardGrid)`
 background-color: grey;
 `

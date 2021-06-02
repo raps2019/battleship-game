@@ -12,7 +12,11 @@ const Gameboard = (props) => {
       {player1.gameboard.gameboardArray.map((grid) => {
         if (grid.shipPresent) {
           if (grid.isAttacked) {
-            return <Styled.GameboardGridHit></Styled.GameboardGridHit>;
+            if (grid.sunkShipPresent) {
+              return <Styled.GameboardGridSunk></Styled.GameboardGridSunk>
+            } else {
+              return <Styled.GameboardGridHit></Styled.GameboardGridHit>;
+            }
           } else {
             return <Styled.GameboardGridOccupied></Styled.GameboardGridOccupied>;
           }

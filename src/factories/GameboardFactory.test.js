@@ -12,7 +12,7 @@ describe('gameboard factory functions', () => {
 
   it('calls placeShip and shipFactory correctly', () => {
     testGameboard.placeShip('battleship', 1, 1, 'horizontal');
-    expect(testGameboard.shipArray[0].length).toBe(4);
+    expect(testGameboard.ships[0].length).toBe(4);
     expect(
       testGameboard.gameboardArray.find(
         (grid) => grid.xCoord === 1 && grid.yCoord === 1
@@ -34,13 +34,13 @@ describe('gameboard factory functions', () => {
     testGameboard.placeShip('battleship', 1, 1, 'horizontal');
     testGameboard.receiveAttack(1, 1);
     expect(
-      testGameboard.shipArray[0].shipSectors.find(
+      testGameboard.ships[0].shipSectors.find(
         (shipSector) =>
           shipSector.xCoord === 1 && shipSector.yCoord === 1
       ).hit
     ).toBe(true);
     expect(
-      testGameboard.shipArray[0].shipSectors.find(
+      testGameboard.ships[0].shipSectors.find(
         (shipSector) =>
           shipSector.xCoord === 2 && shipSector.yCoord === 1
       ).hit

@@ -15,8 +15,22 @@ const Game = () => {
   const cpu = PlayerFactory('cup');
   cpu.attack(1, 1, player1.gameboard)
   cpu.attack(2, 1, player1.gameboard)
+  cpu.attack(3, 1, player1.gameboard)
+  cpu.attack(4, 1, player1.gameboard)
+
+  cpu.attack(4, 3, player1.gameboard)
+  cpu.attack(4, 4, player1.gameboard)
+  cpu.attack(4, 5, player1.gameboard)
+  cpu.attack(4, 6, player1.gameboard)
+  cpu.attack(4, 7, player1.gameboard)
+
+  cpu.attack(5, 3, player1.gameboard)
 
 
+
+
+
+  console.log(player1.gameboard.shipArray)
 
 
 

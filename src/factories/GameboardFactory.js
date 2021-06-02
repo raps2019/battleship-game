@@ -20,11 +20,12 @@ const GameboardFactory = () => {
         yCoord,
         shipPresent: null,
         isAttacked: false,
+        sunkShipPresent: false,
       })
     )
   );
 
-  const shipArray = [];
+  const ships = [];
 
   const placeShip = (shipType, xCoord, yCoord, orientation) => {
     const shipLength = shipTypes[shipType].length;
@@ -47,34 +48,38 @@ const GameboardFactory = () => {
     }
 
     const ship = ShipFactory(shipType, gridPositionsOccupied);
-    shipArray.push(ship);
+    ships.push(ship);
   };
 
   const receiveAttack = (xCoord, yCoord) => {
     const gridAttacked = gameboardArray.find(
-      (grid) =>
-        grid.xCoord === xCoord && grid.yCoord === yCoord
+      (grid) => grid.xCoord === xCoord && grid.yCoord === yCoord
     );
 
     if (gridAttacked.isAttacked === false) {
       gridAttacked.isAttacked = true;
       if (gridAttacked.shipPresent !== null) {
-        const shipAttacked = shipArray.find(
+        const shipAttacked = ships.find(
           (ship) => ship.type === gridAttacked.shipPresent
         );
         shipAttacked.registerHit(xCoord, yCoord);
+        if (shipAttacked.isSunk()) {
+          gameboardArray
+            .filter((grid) => grid.shipPresent === shipAttacked.type)
+            .map((grid) => (grid.sunkShipPresent = true));
+        }
       }
     }
   };
 
   const shipsStillActive = () => {
-    return shipArray.some( ship => ship.isSunk() === false)
-  }
+    return ships.some((ship) => ship.isSunk() === false);
+  };
 
   return {
     gameboardArray,
     shipTypes,
-    shipArray,
+    ships,
     receiveAttack,
     placeShip,
     shipsStillActive,
@@ -89,4 +94,4 @@ export default GameboardFactory;
 // testGameboard.receiveAttack(1, 1);
 // console.log(testGameboard.gameboardArray);
 
-// console.log(testGameboard.shipArray[0].shipSectors);
+// console.log(testGameboard.ships[0].shipSectors);
