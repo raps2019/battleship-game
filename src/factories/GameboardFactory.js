@@ -13,8 +13,8 @@ const GameboardFactory = () => {
 
   const gameboardArray = [];
 
-  xAxis.forEach((xCoord) =>
-    yAxis.forEach((yCoord) =>
+  yAxis.forEach((yCoord) =>
+    xAxis.forEach((xCoord) =>
       gameboardArray.push({
         xCoord,
         yCoord,
