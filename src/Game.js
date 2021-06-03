@@ -9,12 +9,11 @@ const Game = () => {
   const [playerTurn, setPlayerTurn] = useState(true);
   const [lastXCoordHit, setLastXCoordHit] = useState(null);
   const [lastYCoordHit, setLastYCoordHit] = useState(null);
-  const [lastShipHit, setLastShipHit] = useState(null);
+  const [nextShots, setNextShots] = useState([]);
 
   const handlePlayerAttack = (xCoord, yCoord) => {
     if (playerTurn) {
       const cpuCopy = { ...cpu };
-      console.log(cpuCopy);
       player.attack(xCoord, yCoord, cpuCopy.gameboard);
       setCpu(cpuCopy);
       setPlayerTurn(false);
@@ -27,43 +26,71 @@ const Game = () => {
 
   const handleCpuAttack = () => {
     const playerCopy = { ...player };
-    let randomXCoord;
-    let randomYCoord;
+    const playerGameboard = player.gameboard.gameboardArray;
+    let xCoord;
+    let yCoord;
+    let attackedGrid;
 
-    if (
-      lastXCoordHit === null &&
-      lastYCoordHit === null &&
-      lastShipHit === null
-    ) {
-
+    if (nextShots.length > 0) {
+      const nextShotsCopy = [...nextShots]
+      xCoord = nextShotsCopy[0][0];
+      yCoord = nextShotsCopy[0][1];
+      nextShotsCopy.shift();
+      setNextShots(nextShotsCopy);
+    } else {
       do {
-        randomXCoord = randomCoord();
-        randomYCoord = randomCoord();
+        xCoord = randomCoord();
+        yCoord = randomCoord();
       } while (
-        playerCopy.gameboard.gameboardArray.find(
-          (grid) => grid.xCoord === randomXCoord && grid.yCoord === randomYCoord
+        playerGameboard.find(
+          (grid) => grid.xCoord === xCoord && grid.yCoord === yCoord
         ).isAttacked === true
       );
-
-      cpu.attack(randomXCoord, randomYCoord, playerCopy.gameboard);
     }
 
-    const attackedGrid = playerCopy.gameboard.gameboardArray.find(
-      (grid) => grid.xCoord === randomXCoord && grid.yCoord === randomYCoord
+    cpu.attack(xCoord, yCoord, playerCopy.gameboard);
+
+    attackedGrid = playerGameboard.find(
+      (grid) => grid.xCoord === xCoord && grid.yCoord === yCoord
     );
 
-    console.log(attackedGrid)
-
     if (attackedGrid.shipPresent !== false) {
-      if (attackedGrid.sunkShipPresent === false) {
-        setLastShipHit(attackedGrid.shipPresent);
-        setLastXCoordHit(randomXCoord);
-        setLastYCoordHit(randomYCoord);
-      } else {
-        setLastShipHit(null);
-        setLastXCoordHit(null);
-        setLastYCoordHit(null);
+      // setLastXCoordHit(xCoord);
+      // setLastYCoordHit(yCoord);
+      console.log(playerGameboard)
+      const nextShotsArray = [];
+      if (
+        playerGameboard.find(
+          (grid) => grid.xCoord === xCoord + 1 && grid.yCoord === yCoord
+        ).isAttacked === false
+      ) {
+        nextShotsArray.push([xCoord + 1, yCoord]);
+      } 
+      
+      if (
+        playerGameboard.find(
+          (grid) => grid.xCoord === xCoord - 1 && grid.yCoord === yCoord
+        ).isAttacked === false
+      ) {
+        nextShotsArray.push([xCoord - 1, yCoord]);
+      } 
+      
+      if (
+        playerGameboard.find(
+          (grid) => grid.xCoord === xCoord && grid.yCoord === yCoord + 1
+        ).isAttacked === false
+      ) {
+        nextShotsArray.push([xCoord, yCoord + 1]);
+      } 
+      
+      if (
+        playerGameboard.find(
+          (grid) => grid.xCoord === xCoord && grid.yCoord === yCoord - 1
+        ).isAttacked === false
+      ) {
+        nextShotsArray.push([xCoord, yCoord - 1]);
       }
+      setNextShots(nextShotsArray);
     }
 
     setPlayer(playerCopy);
