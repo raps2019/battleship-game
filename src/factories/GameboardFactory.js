@@ -18,7 +18,7 @@ const GameboardFactory = () => {
       gameboardArray.push({
         xCoord,
         yCoord,
-        shipPresent: null,
+        shipPresent: false,
         isAttacked: false,
         sunkShipPresent: false,
       })
@@ -58,19 +58,24 @@ const GameboardFactory = () => {
 
     if (gridAttacked.isAttacked === false) {
       gridAttacked.isAttacked = true;
-      if (gridAttacked.shipPresent !== null) {
+      if (gridAttacked.shipPresent !== false) {
         const shipAttacked = ships.find(
           (ship) => ship.type === gridAttacked.shipPresent
         );
         shipAttacked.registerHit(xCoord, yCoord);
         if (shipAttacked.isSunk()) {
-          gameboardArray
-            .filter((grid) => grid.shipPresent === shipAttacked.type)
-            .map((grid) => (grid.sunkShipPresent = true));
+          shipIsSunk(shipAttacked)
         }
       }
     }
   };
+
+  const shipIsSunk = (ship) => {
+    gameboardArray
+    .filter((grid) => grid.shipPresent === ship.type)
+    .map((grid) => (grid.sunkShipPresent = true));
+  } 
+
 
   const shipsStillActive = () => {
     return ships.some((ship) => ship.isSunk() === false);

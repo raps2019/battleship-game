@@ -1,45 +1,103 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import PlayerFactory from './factories/PlayerFactory';
-import Gameboard from './components/Gameboard'
+import FriendlyWatersGameboard from './components/FriendlyWatersGameboard';
+import EnemyWatersGameboard from './components/EnemyWatersGameboard';
 
 const Game = () => {
+  const [player, setPlayer] = useState(PlayerFactory('player'));
+  const [cpu, setCpu] = useState(PlayerFactory('cpu'));
+  const [playerTurn, setPlayerTurn] = useState(true);
+  const [lastXCoordHit, setLastXCoordHit] = useState(null);
+  const [lastYCoordHit, setLastYCoordHit] = useState(null);
+  const [lastShipHit, setLastShipHit] = useState(null);
 
-  const player1 = PlayerFactory('player1');
+  const handlePlayerAttack = (xCoord, yCoord) => {
+    if (playerTurn) {
+      const cpuCopy = { ...cpu };
+      console.log(cpuCopy);
+      player.attack(xCoord, yCoord, cpuCopy.gameboard);
+      setCpu(cpuCopy);
+      setPlayerTurn(false);
+    }
+  };
 
-  player1.gameboard.placeShip('battleship', 1, 1, 'horizontal')
-  player1.gameboard.placeShip('carrier', 4, 3, 'vertical')
-  player1.gameboard.placeShip('destroyer', 8, 5, 'horizontal')
-  player1.gameboard.placeShip('submarine', 6, 5, 'vertical')
-  player1.gameboard.placeShip('patrolBoat', 3, 9, 'horizontal')
+  const randomCoord = () => {
+    return Math.floor(Math.random() * 10) + 1;
+  };
 
-  const cpu = PlayerFactory('cup');
-  cpu.attack(1, 1, player1.gameboard)
-  cpu.attack(2, 1, player1.gameboard)
-  cpu.attack(3, 1, player1.gameboard)
-  cpu.attack(4, 1, player1.gameboard)
+  const handleCpuAttack = () => {
+    const playerCopy = { ...player };
+    let randomXCoord;
+    let randomYCoord;
 
-  cpu.attack(4, 3, player1.gameboard)
-  cpu.attack(4, 4, player1.gameboard)
-  cpu.attack(4, 5, player1.gameboard)
-  cpu.attack(4, 6, player1.gameboard)
-  cpu.attack(4, 7, player1.gameboard)
+    if (
+      lastXCoordHit === null &&
+      lastYCoordHit === null &&
+      lastShipHit === null
+    ) {
 
-  cpu.attack(5, 3, player1.gameboard)
+      do {
+        randomXCoord = randomCoord();
+        randomYCoord = randomCoord();
+      } while (
+        playerCopy.gameboard.gameboardArray.find(
+          (grid) => grid.xCoord === randomXCoord && grid.yCoord === randomYCoord
+        ).isAttacked === true
+      );
 
+      cpu.attack(randomXCoord, randomYCoord, playerCopy.gameboard);
+    }
 
+    const attackedGrid = playerCopy.gameboard.gameboardArray.find(
+      (grid) => grid.xCoord === randomXCoord && grid.yCoord === randomYCoord
+    );
 
+    console.log(attackedGrid)
 
+    if (attackedGrid.shipPresent !== false) {
+      if (attackedGrid.sunkShipPresent === false) {
+        setLastShipHit(attackedGrid.shipPresent);
+        setLastXCoordHit(randomXCoord);
+        setLastYCoordHit(randomYCoord);
+      } else {
+        setLastShipHit(null);
+        setLastXCoordHit(null);
+        setLastYCoordHit(null);
+      }
+    }
 
-  console.log(player1.gameboard.shipArray)
+    setPlayer(playerCopy);
+    setPlayerTurn(true);
+  };
 
+  useEffect(() => {
+    if (!playerTurn) {
+      handleCpuAttack();
+    }
+  }, [playerTurn]);
 
+  player.gameboard.placeShip('battleship', 1, 1, 'horizontal');
+  player.gameboard.placeShip('carrier', 4, 3, 'vertical');
+  player.gameboard.placeShip('destroyer', 8, 5, 'horizontal');
+  player.gameboard.placeShip('submarine', 6, 5, 'vertical');
+  player.gameboard.placeShip('patrolBoat', 3, 9, 'horizontal');
 
+  cpu.gameboard.placeShip('battleship', 1, 1, 'horizontal');
+  cpu.gameboard.placeShip('carrier', 4, 3, 'vertical');
+  cpu.gameboard.placeShip('destroyer', 8, 5, 'horizontal');
+  cpu.gameboard.placeShip('submarine', 6, 5, 'vertical');
+  cpu.gameboard.placeShip('patrolBoat', 3, 9, 'horizontal');
 
   return (
     <div>
-      <Gameboard player1 ={player1} />
+      <FriendlyWatersGameboard player={player} opponent={cpu} />
+      <EnemyWatersGameboard
+        cpu={cpu}
+        player={player}
+        handlePlayerAttack={handlePlayerAttack}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default Game
+export default Game;
