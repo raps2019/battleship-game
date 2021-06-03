@@ -27,18 +27,70 @@ const GameboardFactory = () => {
 
   const ships = [];
 
+  const isShipWithinBoundaries = (shipType, xCoord, yCoord, orientation) => {
+    if (orientation === 'xAxis') {
+      if (
+        yCoord < 1 ||
+        yCoord > 10 ||
+        shipTypes[shipType].length + xCoord > 10
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    } else if (orientation === 'yAxis') {
+      if (
+        xCoord < 1 ||
+        xCoord > 10 ||
+        shipTypes[shipType].length + yCoord > 10
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  };
+
+  const isShipAlreadyPresent = (shipType, xCoord, yCoord, orientation) => {
+    const occupiedGrids = [];
+    let shipIsPresent = false;
+    if (orientation === 'xAxis') {
+      for (let i = xCoord; i <= xCoord + shipTypes[shipType].length; i += 1) {
+        occupiedGrids.push({ xCoord: i, yCoord });
+      }
+    } else if (orientation === 'yAxis') {
+      for (let i = yCoord; i <= yCoord + shipTypes[shipType].length; i += 1) {
+        occupiedGrids.push({ xCoord, yCoord: i });
+      }
+
+      occupiedGrids.forEach((occupiedGrid) => {
+        if (
+          gameboardArray.find(
+            (grid) =>
+              grid.xCoord === occupiedGrid.xCoord &&
+              grid.yCoord === occupiedGrid.yCoord
+          ).shipPresent !== false
+        ) {
+          shipIsPresent = true;
+        }
+      });
+
+      return shipIsPresent;
+    }
+  };
+
   const placeShip = (shipType, xCoord, yCoord, orientation) => {
     const shipLength = shipTypes[shipType].length;
     const gridPositionsOccupied = [];
 
-    if (orientation === 'horizontal') {
+    if (orientation === 'xAxis') {
       for (let i = xCoord; i < xCoord + shipLength; i += 1) {
         gridPositionsOccupied.push({ xCoord: i, yCoord });
         gameboardArray.find(
           (grid) => grid.xCoord === i && grid.yCoord === yCoord
         ).shipPresent = shipType;
       }
-    } else if (orientation === 'vertical') {
+    } else if (orientation === 'yAxis') {
       for (let i = yCoord; i < yCoord + shipLength; i += 1) {
         gridPositionsOccupied.push({ xCoord, yCoord: i });
         gameboardArray.find(
@@ -64,7 +116,7 @@ const GameboardFactory = () => {
         );
         shipAttacked.registerHit(xCoord, yCoord);
         if (shipAttacked.isSunk()) {
-          shipIsSunk(shipAttacked)
+          shipIsSunk(shipAttacked);
         }
       }
     }
@@ -72,10 +124,9 @@ const GameboardFactory = () => {
 
   const shipIsSunk = (ship) => {
     gameboardArray
-    .filter((grid) => grid.shipPresent === ship.type)
-    .map((grid) => (grid.sunkShipPresent = true));
-  } 
-
+      .filter((grid) => grid.shipPresent === ship.type)
+      .map((grid) => (grid.sunkShipPresent = true));
+  };
 
   const shipsStillActive = () => {
     return ships.some((ship) => ship.isSunk() === false);
@@ -88,6 +139,8 @@ const GameboardFactory = () => {
     receiveAttack,
     placeShip,
     shipsStillActive,
+    isShipWithinBoundaries,
+    isShipAlreadyPresent,
   };
 };
 

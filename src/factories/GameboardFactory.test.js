@@ -11,7 +11,7 @@ describe('gameboard factory functions', () => {
   });
 
   it('calls placeShip and shipFactory correctly', () => {
-    testGameboard.placeShip('battleship', 1, 1, 'horizontal');
+    testGameboard.placeShip('battleship', 1, 1, 'xAxis');
     expect(testGameboard.ships[0].length).toBe(4);
     expect(
       testGameboard.gameboardArray.find(
@@ -27,11 +27,26 @@ describe('gameboard factory functions', () => {
       testGameboard.gameboardArray.find(
         (grid) => grid.xCoord === 5 && grid.yCoord === 1
       ).shipPresent
-    ).toBe(null);
+    ).toBe(false);
   });
 
+  it('calls isShipWithinBoundaries correctly', () => {
+    expect(testGameboard.isShipWithinBoundaries('carrier', 1, 4, 'yAxis')).toBe(true);
+    expect(testGameboard.isShipWithinBoundaries('carrier', 1, 6, 'yAxis')).toBe(false);
+    expect(testGameboard.isShipWithinBoundaries('destroyer', 7, 5, 'xAxis')).toBe(true);
+    expect(testGameboard.isShipWithinBoundaries('carrier', 8, 5, 'xAxis')).toBe(false);
+    expect(testGameboard.isShipWithinBoundaries('carrier', 11, 4, 'yAxis')).toBe(false);
+    expect(testGameboard.isShipWithinBoundaries('carrier', 4, 11, 'xAxis')).toBe(false);
+  }) 
+
+  it('calls shipIsPresent correctly', () => {
+    testGameboard.placeShip('battleship', 1, 1, 'xAxis');
+    expect(testGameboard.isShipAlreadyPresent('destroyer', 1, 1, 'yAxis')).toBe(true);
+    expect(testGameboard.isShipAlreadyPresent('destroyer', 1, 2, 'yAxis')).toBe(false);
+  })
+
   it('calls receiveAttack correctly', () => {
-    testGameboard.placeShip('battleship', 1, 1, 'horizontal');
+    testGameboard.placeShip('battleship', 1, 1, 'xAxis');
     testGameboard.receiveAttack(1, 1);
     expect(
       testGameboard.ships[0].shipSectors.find(
@@ -53,8 +68,8 @@ describe('gameboard factory functions', () => {
   });
 
   it('calls shipsStillActive correctly', () => {
-    testGameboard.placeShip('carrier', 1, 1, 'vertical');
-    testGameboard.placeShip('patrolBoat', 4, 4, 'horizontal')
+    testGameboard.placeShip('carrier', 1, 1, 'yAxis');
+    testGameboard.placeShip('patrolBoat', 4, 4, 'xAxis')
     testGameboard.receiveAttack(1, 1);
     expect(testGameboard.shipsStillActive()).toBe(true);
     testGameboard.receiveAttack(1,2);

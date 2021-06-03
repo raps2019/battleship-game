@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import PlayerFactory from './factories/PlayerFactory';
 import FriendlyWatersGameboard from './components/FriendlyWatersGameboard';
 import EnemyWatersGameboard from './components/EnemyWatersGameboard';
@@ -103,17 +103,17 @@ const Game = () => {
     }
   }, [playerTurn]);
 
-  player.gameboard.placeShip('battleship', 1, 1, 'horizontal');
-  player.gameboard.placeShip('carrier', 4, 3, 'vertical');
-  player.gameboard.placeShip('destroyer', 8, 5, 'horizontal');
-  player.gameboard.placeShip('submarine', 6, 5, 'vertical');
-  player.gameboard.placeShip('patrolBoat', 3, 9, 'horizontal');
+  player.gameboard.placeShip('battleship', 1, 1, 'xAxis');
+  player.gameboard.placeShip('carrier', 4, 3, 'yAxis');
+  player.gameboard.placeShip('destroyer', 8, 5, 'xAxis');
+  player.gameboard.placeShip('submarine', 6, 5, 'yAxis');
+  player.gameboard.placeShip('patrolBoat', 3, 9, 'xAxis');
 
-  cpu.gameboard.placeShip('battleship', 1, 1, 'horizontal');
-  cpu.gameboard.placeShip('carrier', 4, 3, 'vertical');
-  cpu.gameboard.placeShip('destroyer', 8, 5, 'horizontal');
-  cpu.gameboard.placeShip('submarine', 6, 5, 'vertical');
-  cpu.gameboard.placeShip('patrolBoat', 3, 9, 'horizontal');
+  cpu.gameboard.placeShip('battleship', 1, 1, 'xAxis');
+  cpu.gameboard.placeShip('carrier', 4, 3, 'yAxis');
+  cpu.gameboard.placeShip('destroyer', 8, 5, 'xAxis');
+  cpu.gameboard.placeShip('submarine', 6, 5, 'yAxis');
+  cpu.gameboard.placeShip('patrolBoat', 3, 9, 'xAxis');
 
   return (
     <div>
