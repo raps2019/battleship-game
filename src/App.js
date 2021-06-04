@@ -1,17 +1,25 @@
-import './App.css';
 import React from 'react';
 import { StateProvider } from './StateProvider';
-import { InitializationWindow } from './game_window/InitializationWindow';
+import GameWindow from './components/game_window/GameWindow';
+import * as Styled from './App.styles';
+import GlobalStyles from './GlobalStyles';
+import Footer from './components/footer/Footer';
+import Header from './components/header/Header';
+
+
 
 
 function App() {
 
   return (
-    <div className="App">
+    <Styled.AppContainer className="App">
+    <GlobalStyles/>
       <StateProvider>
-        <InitializationWindow></InitializationWindow>
+        <Header></Header>
+        <GameWindow></GameWindow>
+        <Footer></Footer>
       </StateProvider>
-    </div>
+    </Styled.AppContainer>
   );
 }
 

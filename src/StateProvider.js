@@ -6,6 +6,7 @@ const { Provider } = store;
 const StateProvider = ({children}) => {
 
   const initialState = {
+    gameWindow: 'initialization',
     players: [],
     turn: 0, 
   }
