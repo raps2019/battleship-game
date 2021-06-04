@@ -1,10 +1,16 @@
 import './App.css';
-import Game from './Game';
+import React from 'react';
+import { StateProvider } from './StateProvider';
+import { InitializationWindow } from './game_window/InitializationWindow';
+
 
 function App() {
+
   return (
     <div className="App">
-      <Game />
+      <StateProvider>
+        <InitializationWindow></InitializationWindow>
+      </StateProvider>
     </div>
   );
 }
