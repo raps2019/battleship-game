@@ -27,11 +27,13 @@ const GameboardFactory = () => {
   );
 
   const isShipWithinBoundaries = (shipType, xCoord, yCoord, orientation) => {
+    console.log((shipTypes.find( ship => ship.type === shipType).length - 1 + xCoord))
+    console.log(shipTypes.find( ship => ship.type === shipType).length - 1 + yCoord )
     if (orientation === 'xAxis') {
       if (
         yCoord < 1 ||
         yCoord > 10 ||
-        (shipTypes.find( ship => ship.type === shipType).length - 1 + xCoord) >= 10
+        shipTypes.find( ship => ship.type === shipType).length - 1 + xCoord > 10
       ) {
         return false;
       } else {
@@ -41,7 +43,7 @@ const GameboardFactory = () => {
       if (
         xCoord < 1 ||
         xCoord > 10 ||
-        shipTypes.find( ship => ship.type === shipType).length - 1 + yCoord >= 10
+        shipTypes.find( ship => ship.type === shipType).length - 1 + yCoord > 10
       ) {
         return false;
       } else {
