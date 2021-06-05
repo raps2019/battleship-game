@@ -6,13 +6,13 @@ const GameboardFactory = () => {
   const gameboardArray = [];
   const ships = [];
 
-  const shipTypes = {
-    carrier: { length: 5 },
-    battleship: { length: 4 },
-    destroyer: { length: 3 },
-    submarine: { length: 3 },
-    patrolBoat: { length: 2 },
-  };
+  const shipTypes = [
+    {type: 'carrier', length: 5},
+    {type: 'battleship', length: 4},
+    {type: 'destroyer', length: 3},
+    {type: 'submarine', length: 3},
+    {type: 'patrolBoat', length: 2},
+  ];
 
   yAxis.forEach((yCoord) =>
     xAxis.forEach((xCoord) =>
@@ -31,7 +31,7 @@ const GameboardFactory = () => {
       if (
         yCoord < 1 ||
         yCoord > 10 ||
-        shipTypes[shipType].length + xCoord > 10
+        (shipTypes.find( ship => ship.type === shipType).length - 1 + xCoord) >= 10
       ) {
         return false;
       } else {
@@ -41,7 +41,7 @@ const GameboardFactory = () => {
       if (
         xCoord < 1 ||
         xCoord > 10 ||
-        shipTypes[shipType].length + yCoord > 10
+        shipTypes.find( ship => ship.type === shipType).length - 1 + yCoord >= 10
       ) {
         return false;
       } else {
@@ -53,11 +53,11 @@ const GameboardFactory = () => {
   const coordinatesOccupiedByShip = (shipType, xCoord, yCoord, orientation) => {
     const coordinates = [];
     if (orientation === 'xAxis') {
-      for (let i = xCoord; i < xCoord + shipTypes[shipType].length; i += 1) {
+      for (let i = xCoord; i < xCoord + shipTypes.find( ship => ship.type === shipType).length; i += 1) {
         coordinates.push({ xCoord: i, yCoord });
       }
     } else if (orientation === 'yAxis') {
-      for (let i = yCoord; i < yCoord + shipTypes[shipType].length; i += 1) {
+      for (let i = yCoord; i < yCoord + shipTypes.find( ship => ship.type === shipType).length; i += 1) {
         coordinates.push({ xCoord, yCoord: i });
       }
     }

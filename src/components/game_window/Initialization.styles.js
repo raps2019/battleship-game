@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro'
+import { Button } from '../../GlobalStyles'
 
-export const Form = styled.div`
+export const Form = styled.form`
   display: grid;
   align-content: center;
   justify-items: center;
@@ -16,42 +17,65 @@ color: white;
 export const Input = styled.input`
 font-family: 'Istok Web', sans-serif;
 font-size: 2rem;
-margin: 30px 0;
+margin: 30px 0 50px 0;
+color: white;
+text-align: center;
+border-radius: 0.5rem;
 background: none;
-border: none;
+box-shadow: 0 0 15px 5px transparent;
+border: darkorange 1px solid;
+padding: 10px 20px;
+transition: all 0.3s ease-in-out;
 
-border: solid 10px transparent;
-background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), 
-linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
-background-origin: border-box;
-background-clip: content-box, border-box;
-box-shadow: 2px 1000px 1px #fff inset;
-transition: all 300ms ease-in-out;
+&:hover {
+	/* transition: box-shadow 0.3s ease-in-out; */
+	box-shadow: 0 0 15px 5px darkorange;
+	border: 1px solid darkorange;
+}
 
 &:focus {
-  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(to right, #fa709a 0%, #fee140 100%);
+  /* transition: box-shadow 0.3s ease-in-out; */
+	box-shadow: 0 0 15px 5px darkorange;
+	border: 1px solid darkorange;
   outline: none;
 }
 `
-
-
-// background-image: ;
-
-export const SubmitButton = styled.button`
-font-family: 'Istok Web', sans-serif;
-font-size: 1.5rem;
-/* border-radius: 100rem; */
-padding: 0.25rem 0.75rem;
-box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
-border: solid 3px transparent;
-background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(101deg, #78e4ff, #ff48fa);
-background-origin: border-box;
-background-clip: content-box, border-box;
-box-shadow: 2px 1000px 1px #fff inset;
-transition: all 300ms ease-in-out;
+export const SubmitButton = styled(Button)`
 
 &:hover {
-  box-shadow: none;
-  color: white;
+
 }
 `
+
+// .btn-design3 {
+// 	margin: 16px auto;
+// 	padding: 16px;
+// 	color: #fff !important;
+// 	overflow: hidden;
+// 	position: relative;
+// 	background: none;
+// 	box-shadow: 0 0 0 0 #22AFCA;
+// 	border: 1px solid #22AFCA;
+// }
+// .btn-design3::after {
+//  background: #0c75d7 none repeat scroll 0 0;
+//  content: "";
+//  height: 155px;
+//  left: -75px;
+//  opacity: 0.2;
+//  position: absolute;
+//  top: -50px;
+//  transform: rotate(35deg);
+//  transition: all 850ms cubic-bezier(0.19, 1, 0.22, 1) 0s;
+//  width: 50px;
+//  z-index: 10000000000000000000000;
+// }
+// .btn-design3:hover {
+// 	transition: all 0s ease-in-out 0s;
+// 	box-shadow: 0 0 5px 0 #0c75d7;
+// }
+// .btn-design3:hover::after {
+//  left: 120%;
+//  background: #0c75d7;
+//  transition: all 850ms cubic-bezier(0.19, 1, 0.22, 1) 0s;
+// }

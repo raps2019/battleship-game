@@ -2,6 +2,7 @@ import React, {useContext} from 'react'
 import { store } from '../../StateProvider'
 import { Initialization } from './Initialization'
 import * as Styled from './GameWindow.styles'
+import Setup from './Setup'
 
 
 
@@ -14,11 +15,16 @@ const GameWindow = () => {
 
 
   const renderChild = (timeline) => {
-    return gameWindow === 'initialization'
-    ? (
-      <Initialization></Initialization>
-    )
-    : null
+    if (gameWindow === 'initialization') {
+      return <Initialization></Initialization>
+    } else if (gameWindow === 'setup') {
+      return <Setup></Setup>
+    }
+    else {
+      return null;
+    }
+
+  
   }
 
   return (

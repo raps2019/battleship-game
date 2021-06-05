@@ -7,7 +7,7 @@ justify-items: center;
 `
 
 export const HeaderTitle = styled.div`
-  color: whitesmoke;
+  color: darkorange;
   font-family: 'Black Ops One', cursive;
   font-size: 5rem;
 `

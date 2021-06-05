@@ -7,7 +7,7 @@ describe('gameboard factory functions', () => {
     testGameboard = GameboardFactory();
   });
   it('gameboard factory provides ship length', () => {
-    expect(testGameboard.shipTypes.carrier.length).toBe(5);
+    expect(testGameboard.shipTypes.find(ship => ship.type === 'carrier').length).toBe(5);
   });
 
   it('calls placeShip and shipFactory correctly', () => {

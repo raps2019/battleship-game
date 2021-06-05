@@ -21,8 +21,9 @@ const handleSubmit = (e) => {
   const cpu = PlayerFactory('CPU');
 
   dispatch({type: 'SET_PLAYERS', payload: {player, cpu}})
+  dispatch({type: 'SET_GAMEWINDOW', payload: 'setup'})
 
-  console.log(state.players)
+  // console.log(state.players.player.gameboard.gameboardArray)
 }
 
   return (
