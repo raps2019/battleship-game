@@ -9,8 +9,9 @@ export const Form = styled.form`
 `
 
 export const Label = styled.label`
-font-family: 'Istok Web', sans-serif;
-font-size: 2rem;
+  font-family: 'Russo One', sans-serif;
+  letter-spacing: 5px;
+font-size: 1.8rem;
 color: white;
 `
 

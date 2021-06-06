@@ -3,6 +3,7 @@ import { store } from '../../StateProvider'
 import { Initialization } from './Initialization'
 import * as Styled from './GameWindow.styles'
 import Setup from './Setup'
+import Game from './Game'
 
 
 
@@ -19,8 +20,9 @@ const GameWindow = () => {
       return <Initialization></Initialization>
     } else if (gameWindow === 'setup') {
       return <Setup></Setup>
-    }
-    else {
+    } else if (gameWindow === 'game') {
+      return <Game></Game>
+    } else {
       return null;
     }
 

@@ -9,6 +9,7 @@ justify-items: center;
 export const HeaderTitle = styled.div`
   color: darkorange;
   font-family: 'Black Ops One', cursive;
-  font-size: 5rem;
+  letter-spacing: 10px;
+  font-size: 6rem;
 `
 

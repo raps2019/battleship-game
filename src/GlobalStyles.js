@@ -27,9 +27,9 @@ opacity: 0.25;
 /* background-color: ${props => props.gridColor}; */
 `
 export const Button = styled.button`
-  font-family: 'Istok Web', sans-serif;
+  font-family: 'Russo One', sans-serif;
+  letter-spacing: 5px;
   font-size: 1.5rem;
-	letter-spacing: 2px;
 	padding: 5px 25px;
 	color: white;
   box-shadow: 0 0 15px 5px transparent;

@@ -8,5 +8,6 @@ export const FooterContainer = styled.div`
 
 export const FooterText = styled.div`
   color: whitesmoke;
-  font-family: 'Black Ops One', cursive;
-`
+  font-family: 'Russo One', sans-serif;
+  letter-spacing: 5px;
+  `

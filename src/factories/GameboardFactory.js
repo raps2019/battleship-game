@@ -27,8 +27,6 @@ const GameboardFactory = () => {
   );
 
   const isShipWithinBoundaries = (shipType, xCoord, yCoord, orientation) => {
-    console.log((shipTypes.find( ship => ship.type === shipType).length - 1 + xCoord))
-    console.log(shipTypes.find( ship => ship.type === shipType).length - 1 + yCoord )
     if (orientation === 'xAxis') {
       if (
         yCoord < 1 ||
@@ -63,7 +61,6 @@ const GameboardFactory = () => {
         coordinates.push({ xCoord, yCoord: i });
       }
     }
-
     return coordinates;
   };
 
@@ -109,6 +106,10 @@ const GameboardFactory = () => {
     const ship = ShipFactory(shipType, coordinatesOccupied);
     ships.push(ship);
   };
+
+  const placeAllShips = () => {
+    
+  }
 
   const receiveAttack = (xCoord, yCoord) => {
     const gridAttacked = gameboardArray.find(
