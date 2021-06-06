@@ -6,6 +6,7 @@ const ShipPlacementGameboard = () => {
   const { state, dispatch } = useContext(store);
   const playerGameboard = state.players.player.gameboard;
   const [orientation, setOrientation] = useState('xAxis');
+  const [ hoveredGrids, setHoveredGrids ] = useState([])
   const [ships, setShips] = useState(playerGameboard.shipTypes)
    const [message, setMessage] = useState(
     `PLACE YOUR ${ships[0].type.toUpperCase()}`
@@ -13,7 +14,6 @@ const ShipPlacementGameboard = () => {
 
   const handleOnClick = ({ xCoord, yCoord }) => {
     const currentShip = ships[0].type;
-    const currentShipLength = ships[0].length
 
     if (
       !playerGameboard.isShipWithinBoundaries(
@@ -40,6 +40,41 @@ const ShipPlacementGameboard = () => {
       setShips(shipsCopy)
     }
   };
+
+  const handleOnMouseEnter = ({ xCoord, yCoord }) => {
+    console.log('hovering')
+    const currentShipLength = ships[0].length;
+    
+    const hovered = [];
+
+    if ( orientation === 'xAxis') {
+      for ( let i = 0; i < currentShipLength; i ++) {
+        hovered.push( {xCoord: xCoord + i , yCoord})
+      }
+    } else if ( orientation === 'yAxis') {
+      for ( let i = 0; i < currentShipLength; i ++) {
+        hovered.push( {xCoord: xCoord, yCoord: yCoord + i})
+      }
+    }
+    setHoveredGrids(hovered)
+    console.log(hovered)
+  }
+
+  // const checkHoveredGrid = (grid) => {
+
+  //   if (hoveredGrids.some( hoveredGrid => hoveredGrid.xCoord === grid.xCoord && hoveredGrid.yCoord === grid.yCoord )) {
+  //     console.log('true')
+
+  //     return true
+  //   } else {
+  //     console.log('false')
+
+  //     return false
+  //   }
+    
+  // }
+
+
   const handleChangeOrientation = () => {
     let newOrientation;
     if (orientation === 'xAxis') {
@@ -55,7 +90,7 @@ const ShipPlacementGameboard = () => {
   }, [ships])
 
   return (
-    <div>
+    <Styled.ShipPlacementContainer>
       <Styled.MessageText>{message}</Styled.MessageText>
       <Styled.ToggleOrientationButton onClick={() => handleChangeOrientation()}>
         {orientation === 'xAxis' ? 'X-AXIS' : 'Y-AXIS'}
@@ -65,17 +100,15 @@ const ShipPlacementGameboard = () => {
           <Styled.Grid 
           key={index} 
           onClick={() => handleOnClick(grid)}
-          gridColor = {
-            grid.shipPresent !== false
-            ? 'red'
-            : 'black'
-          }
+          onMouseEnter={() => handleOnMouseEnter(grid)}
+          gridOccupied = {grid.shipPresent !== false ? true : null}
+          gridHovered = {hoveredGrids.some( hoveredGrid => hoveredGrid.xCoord === grid.xCoord && hoveredGrid.yCoord === grid.yCoord) === true ? true : null}
           >
             {grid.xCoord} {grid.yCoord}
           </Styled.Grid>
         ))}
       </Styled.Gameboard>
-    </div>
+    </Styled.ShipPlacementContainer>
   );
 };
 

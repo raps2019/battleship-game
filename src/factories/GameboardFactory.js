@@ -33,7 +33,7 @@ const GameboardFactory = () => {
       if (
         yCoord < 1 ||
         yCoord > 10 ||
-        shipTypes.find( ship => ship.type === shipType).length - 1 + xCoord > 10
+        shipTypes.find( ship => ship.type === shipType).length + xCoord - 1 > 10
       ) {
         return false;
       } else {
@@ -43,7 +43,7 @@ const GameboardFactory = () => {
       if (
         xCoord < 1 ||
         xCoord > 10 ||
-        shipTypes.find( ship => ship.type === shipType).length - 1 + yCoord > 10
+        shipTypes.find( ship => ship.type === shipType).length + yCoord - 1 > 10
       ) {
         return false;
       } else {

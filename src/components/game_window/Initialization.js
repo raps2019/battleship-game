@@ -29,7 +29,7 @@ const handleSubmit = (e) => {
   return (
     <div>
       <Styled.Form onSubmit={handleSubmit}>
-        <Styled.Label htmlFor='name'>ENTER PLAYER NAME</Styled.Label>
+        <Styled.Label htmlFor='name'>ENTER PLAYER NAME:</Styled.Label>
         <Styled.Input type="text" onChange={handleChange} value={name}></Styled.Input>
         <Styled.SubmitButton type="submit" >START GAME</Styled.SubmitButton>
       </Styled.Form>

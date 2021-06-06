@@ -1,22 +1,26 @@
 import styled from 'styled-components/macro';
 import { GameboardContainer, GameboardGrid, Button } from '../../GlobalStyles';
 
+export const ShipPlacementContainer = styled.div`
+display:grid;
+justify-items: center;
+`
+
 export const Gameboard = styled(GameboardContainer)``;
 
 export const Grid = styled(GameboardGrid)`
-  background-color: ${props => props.gridColor};
+  background: ${props => props.gridOccupied === true ? 'white' : null};
+  background: ${props => props.gridHovered === true ? 'white' : null};
+  opacity: ${props => props.gridOccupied === true ? '1' : null};
 `;
 
 export const ToggleOrientationButton = styled(Button)`
-  background: lime;
   font-size: 1rem;
-  color: black;
+  color: white;
+  margin: 25px 0;
 
   &:hover {
-    background: none;
-    color: white;
-    box-shadow: 0 0 15px 5px lime;
-    border: 1px solid lime;
+
   }
 `;
 
