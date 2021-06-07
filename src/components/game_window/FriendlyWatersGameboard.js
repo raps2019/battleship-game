@@ -7,18 +7,21 @@ const FriendlyWatersGameboard = () => {
   const playerGameboard = state.players.player.gameboard;
 
   return (
-  <Styled.Gameboard>
-    {playerGameboard.gameboardArray.map((grid, index) => (
-      <Styled.Grid
-      key={index}
-      gridOccupied={grid.shipPresent !== false ? true : null}
-      gridMiss={grid.shipPresent === false && grid.attacked === true ? true : null} 
-      gridHit={grid.shipPresent !== false && grid.attacked === true ? true : null} 
-      gridSunk={grid.sunkShipPresent ? true : false}
-      >
-      </Styled.Grid>
-    ))}
-  </Styled.Gameboard>
+    <Styled.Gameboard>
+      {playerGameboard.gameboardArray.map((grid, index) => (
+        <Styled.Grid
+          key={index}
+          gridOccupied={grid.shipPresent !== false ? true : null}
+          gridMiss={
+            grid.shipPresent === false && grid.attacked === true ? true : null
+          }
+          gridHit={
+            grid.shipPresent !== false && grid.attacked === true ? true : null
+          }
+          gridSunk={grid.sunkShipPresent ? true : false}
+        ></Styled.Grid>
+      ))}
+    </Styled.Gameboard>
   );
 };
 

@@ -4,6 +4,7 @@ import { Initialization } from './Initialization';
 import * as Styled from './GameWindow.styles';
 import Setup from './Setup';
 import Game from './Game';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const GameWindow = () => {
   const { state } = useContext(store);
@@ -24,7 +25,7 @@ const GameWindow = () => {
 
   return (
     <Styled.GameWindowContainer>
-      {renderChild(gameWindow)}
+    {renderChild(gameWindow)}
     </Styled.GameWindowContainer>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PlayerFactory from '../../factories/PlayerFactory';
 import { store } from '../../StateProvider';
 import * as Styled from './Initialization.styles';
@@ -25,7 +26,12 @@ export const Initialization = () => {
   };
 
   return (
-    <div>
+    <CSSTransition
+      appear={true}
+      in={true}
+      timeout={1000}
+      classNames="css-transition-"
+    >
       <Styled.Form onSubmit={handleSubmit}>
         <Styled.Label htmlFor="name">ENTER PLAYER NAME:</Styled.Label>
         <Styled.Input
@@ -35,6 +41,6 @@ export const Initialization = () => {
         ></Styled.Input>
         <Styled.SubmitButton type="submit">START GAME</Styled.SubmitButton>
       </Styled.Form>
-    </div>
+    </CSSTransition>
   );
 };

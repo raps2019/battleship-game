@@ -41,7 +41,7 @@ const ShipPlacementGameboard = () => {
         shipsCopy.shift();
         setShips(shipsCopy);
       } else {
-        cpuGameboard.randomizeShipPlacement()
+        cpuGameboard.randomizeShipPlacement();
         // console.log(cpuGameboard.gameboardArray)
         console.log('changing game window');
         dispatch({ type: 'SET_GAMEWINDOW', payload: 'game' });
@@ -54,7 +54,7 @@ const ShipPlacementGameboard = () => {
       return;
     }
     const currentShipLength = ships[0].length;
-    const hovered = [];   
+    const hovered = [];
     if (orientation === 'xAxis') {
       for (let i = 0; i < currentShipLength; i++) {
         hovered.push({ xCoord: xCoord + i, yCoord });
