@@ -96,8 +96,6 @@ const GameboardFactory = () => {
       orientation
     );
 
-    console.log(gameboardArray)
-
     coordinatesOccupied.forEach((coordinate) => {
       gameboardArray.find(
         (grid) =>
@@ -128,11 +126,6 @@ const GameboardFactory = () => {
         yCoord = getRandomNumber(1,11)
         orientation = axis[getRandomNumber(0,2)];
       } while ( isShipWithinBoundaries(ship.type, xCoord, yCoord, orientation) === false || isShipAlreadyPresent(ship.type, xCoord, yCoord, orientation) === true)
-
-      console.log(xCoord)
-      console.log(yCoord)
-      console.log(ship.type)
-      console.log (orientation)
 
       placeShip(ship.type, xCoord, yCoord, orientation);
     })

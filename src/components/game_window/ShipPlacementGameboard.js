@@ -121,9 +121,9 @@ const ShipPlacementGameboard = () => {
           <CSSTransition
             key={index}
             appear={true}
-            in={true}
+            in={grid.shipPresent !== false}
             // enter={true}
-            timeout={500}
+            timeout={300}
             classNames="css-transition-"
           >
             <Styled.Grid

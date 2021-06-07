@@ -9,10 +9,14 @@ justify-items: center;
 export const Gameboard = styled(GameboardContainer)``;
 
 export const Grid = styled(GameboardGrid)`
-  background: ${props => props.gridOccupied === true ? 'white' : null};
+  opacity: ${props => props.gridOccupied === true ? '0.5' : null};
+  opacity: ${props => props.gridHovered === true ? '0.1' : null};
+  opacity: ${props => props.gridOccupied === true && props.gridHovered === true ? '0.5' : null};
+
   background: ${props => props.gridHovered === true ? 'white' : null};
-  opacity: ${props => props.gridOccupied === true ? '1' : null};
-  transition: all 500ms ease-in;
+  background: ${props => props.gridOccupied === true ? '#8F8F88' : null};
+  background: ${props => props.gridOccupied === true && props.gridHovered === true ? ' #8F8F88' : null};
+  transition: all 300ms cubic-bezier(0.33, 1, 0.68, 1);
 
   &.css-transition--appear {
     transform: scale(0);
@@ -27,6 +31,8 @@ export const Grid = styled(GameboardGrid)`
   }
 
   &.css-transition--enter {
+    transform: rotateX(90deg);
+    opacity: 0;
   }
 
   &.css-transition--enter-active {
