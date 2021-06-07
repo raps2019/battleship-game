@@ -31,7 +31,7 @@ const GameboardFactory = () => {
       if (
         yCoord < 1 ||
         yCoord > 10 ||
-        shipTypes.find( ship => ship.type === shipType).length + xCoord - 1 > 10
+        shipTypes.find( ship => ship.type === shipType).length + xCoord > 11
       ) {
         return false;
       } else {
@@ -41,7 +41,7 @@ const GameboardFactory = () => {
       if (
         xCoord < 1 ||
         xCoord > 10 ||
-        shipTypes.find( ship => ship.type === shipType).length + yCoord - 1 > 10
+        shipTypes.find( ship => ship.type === shipType).length + yCoord > 11
       ) {
         return false;
       } else {
@@ -96,6 +96,8 @@ const GameboardFactory = () => {
       orientation
     );
 
+    console.log(gameboardArray)
+
     coordinatesOccupied.forEach((coordinate) => {
       gameboardArray.find(
         (grid) =>
@@ -107,8 +109,33 @@ const GameboardFactory = () => {
     ships.push(ship);
   };
 
-  const placeAllShips = () => {
-    
+  const getRandomNumber = (minNum, maxNum) => {
+    const min = Math.ceil(minNum);
+    const max = Math.floor(maxNum);
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  const randomizeShipPlacement = () => {
+    const axis = ['xAxis', 'yAxis'];
+    shipTypes.forEach( ship => {
+
+      let xCoord
+      let yCoord
+      let orientation
+
+      do {
+        xCoord = getRandomNumber(1,11)
+        yCoord = getRandomNumber(1,11)
+        orientation = axis[getRandomNumber(0,2)];
+      } while ( isShipWithinBoundaries(ship.type, xCoord, yCoord, orientation) === false || isShipAlreadyPresent(ship.type, xCoord, yCoord, orientation) === true)
+
+      console.log(xCoord)
+      console.log(yCoord)
+      console.log(ship.type)
+      console.log (orientation)
+
+      placeShip(ship.type, xCoord, yCoord, orientation);
+    })
   }
 
   const receiveAttack = (xCoord, yCoord) => {
@@ -149,6 +176,7 @@ const GameboardFactory = () => {
     shipsStillActive,
     isShipWithinBoundaries,
     isShipAlreadyPresent,
+    randomizeShipPlacement,
   };
 };
 

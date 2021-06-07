@@ -28,6 +28,11 @@ const reducer = (state, action) => {
         ...state,
         gameWindow: payload,
       };
+    case 'SET_TURN':
+      return {
+        ...state,
+        turn: payload,
+      };
     default:
       throw new Error('Unexpected Action');
   }

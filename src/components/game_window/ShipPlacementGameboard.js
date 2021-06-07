@@ -6,6 +6,7 @@ import * as Styled from './ShipPlacementGameboard.styles';
 const ShipPlacementGameboard = () => {
   const { state, dispatch } = useContext(store);
   const playerGameboard = state.players.player.gameboard;
+  const cpuGameboard = state.players.cpu.gameboard;
   const [orientation, setOrientation] = useState('xAxis');
   const [hoveredGrids, setHoveredGrids] = useState([]);
   const [ships, setShips] = useState(playerGameboard.shipTypes);
@@ -40,6 +41,8 @@ const ShipPlacementGameboard = () => {
         shipsCopy.shift();
         setShips(shipsCopy);
       } else {
+        cpuGameboard.randomizeShipPlacement()
+        // console.log(cpuGameboard.gameboardArray)
         console.log('changing game window');
         dispatch({ type: 'SET_GAMEWINDOW', payload: 'game' });
       }
@@ -77,11 +80,6 @@ const ShipPlacementGameboard = () => {
       return false;
     }
   };
-
-  // const handleSpacebarKeyPress = useCallback((e) => {
-  //     if (e.keyCode === 32) {
-  //       handleChangeOrientation();
-  //   }},[])
 
   const handleChangeOrientation = () => {
     let newOrientation;

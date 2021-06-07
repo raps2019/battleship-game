@@ -1,11 +1,20 @@
 import React from 'react'
+import EnemyWatersGameboard from './EnemyWatersGameboard'
+import FriendlyWatersGameboard from './FriendlyWatersGameboard'
 import * as Styled from './Game.styles'
 
 const Game = () => {
   return (
-    <div>
-      GAME
-    </div>
+    <Styled.GameContainer>
+      <Styled.EnemyWatersContainer>
+        <EnemyWatersGameboard></EnemyWatersGameboard>
+        <Styled.EnemyWatersHeading>Enemy Waters</Styled.EnemyWatersHeading>
+      </Styled.EnemyWatersContainer>
+      <Styled.FriendlyWatersContainer>
+        <FriendlyWatersGameboard></FriendlyWatersGameboard>
+        <Styled.FriendlyWatersHeading>Friendly Waters</Styled.FriendlyWatersHeading>
+      </Styled.FriendlyWatersContainer>
+    </Styled.GameContainer>
   )
 }
 
