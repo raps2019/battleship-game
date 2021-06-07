@@ -26,21 +26,16 @@ export const Initialization = () => {
   };
 
   return (
-    <CSSTransition
-      appear={true}
-      in={true}
-      timeout={1000}
-      classNames="css-transition-"
-    >
-      <Styled.Form onSubmit={handleSubmit}>
-        <Styled.Label htmlFor="name">ENTER PLAYER NAME:</Styled.Label>
-        <Styled.Input
-          type="text"
-          onChange={handleChange}
-          value={name}
-        ></Styled.Input>
-        <Styled.SubmitButton type="submit">START GAME</Styled.SubmitButton>
-      </Styled.Form>
-    </CSSTransition>
+      
+        <Styled.Form onSubmit={handleSubmit}>
+          <Styled.Label htmlFor="name">ENTER PLAYER NAME:</Styled.Label>
+          <Styled.Input
+            type="text"
+            onChange={handleChange}
+            value={name}
+          ></Styled.Input>
+          <Styled.SubmitButton type="submit">START GAME</Styled.SubmitButton>
+        </Styled.Form>
+
   );
 };
