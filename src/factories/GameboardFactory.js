@@ -124,9 +124,7 @@ const GameboardFactory = () => {
   };
 
   //Random number generator
-  const getRandomNumber = (minNum, maxNum) => {
-    const min = Math.ceil(minNum);
-    const max = Math.floor(maxNum);
+  const getRandomNumber = (max, min) => {
     return Math.floor(Math.random() * (max - min) + min);
   };
 

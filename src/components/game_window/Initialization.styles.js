@@ -20,6 +20,7 @@ color: white;
 export const Input = styled.input`
 font-family: 'Istok Web', sans-serif;
 font-size: 2rem;
+letter-spacing: 5px;
 margin: 30px 0 50px 0;
 color: white;
 text-align: center;

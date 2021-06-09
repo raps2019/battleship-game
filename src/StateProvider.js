@@ -7,7 +7,8 @@ const StateProvider = ({ children }) => {
   const initialState = {
     gameWindow: 'initialization',
     players: [],
-    turn: 0,
+    turn: '',
+    statusMessage: 'test',
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -33,6 +34,11 @@ const reducer = (state, action) => {
         ...state,
         turn: payload,
       };
+      case 'SET_STATUS_MESSAGE': 
+      return {
+        ...state,
+        statusMessage: payload,
+      }
     default:
       throw new Error('Unexpected Action');
   }

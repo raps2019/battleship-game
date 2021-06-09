@@ -17,9 +17,7 @@ const PlayerFactory = (name) => {
     }
   };
 
-  const getRandomNumber = (minNum, maxNum) => {
-    const min = Math.ceil(minNum);
-    const max = Math.floor(maxNum);
+  const getRandomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min);
   };
 
@@ -34,8 +32,8 @@ const PlayerFactory = (name) => {
     let yCoord;
 
     do {
-      xCoord = getRandomNumber(1,10);
-      yCoord = getRandomNumber(1,10);
+      xCoord = getRandomNumber(1,11);
+      yCoord = getRandomNumber(1,11);
       
     } while ( isGridAttacked(xCoord, yCoord, opponentGameboard) === true)
 

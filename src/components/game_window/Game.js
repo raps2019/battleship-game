@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import EnemyWatersGameboard from './EnemyWatersGameboard';
 import FriendlyWatersGameboard from './FriendlyWatersGameboard';
@@ -7,40 +7,69 @@ import { store } from '../../StateProvider';
 
 const Game = () => {
   const { state, dispatch } = useContext(store);
-  const turn = state.turn
   const cpuGameboard = state.players.cpu.gameboard;
   const player = state.players.player;
   const cpu = state.players.cpu;
 
   const handleGridOnClick = (grid) => {
     player.attack(grid.xCoord, grid.yCoord, cpuGameboard);
-    dispatch({ type: 'SET_TURN', payload: state.turn + 1 });
-    setTimeout (() => {
-      handleCpuAttack()
-    },3000)
+    dispatch({ type: 'SET_TURN', payload: cpu.name });
+
+    // if (cpuGameboard.shipsStillActive()) {
+    //   setTimeout(() => {
+    //     handleCpuAttack();
+    //   }, 3000);
+    // } else {
+    //   dispatch({ type: 'SET_STATUS_MESSAGE', payload: `YOU WIN`})
+    // }
   };
 
   const handleCpuAttack = () => {
-    console.log('Cpu attacking')
-    cpu.aiAttack(player.gameboard)
-    dispatch({ type: 'SET_TURN', payload: state.turn + 1 });
-  }
+    cpu.aiAttack(player.gameboard);
+    dispatch({ type: 'SET_TURN', payload: state.players.player.name });
+  };
+
+  useEffect(() => {
+    if (state.turn === cpu.name) {
+      if (cpuGameboard.shipsStillActive()) {
+        dispatch({
+          type: 'SET_STATUS_MESSAGE',
+          payload: `${state.turn}'S TURN TO ATTACK`,
+        });
+        setTimeout(() => {
+          handleCpuAttack();
+        }, 3000);
+      }
+    }
+  }, [state.turn]);
+
+  // useEffect(() => {
+  //   if (cpuGameboard.shipsStillActive()) {
+  //     setTimeout(() => {
+  //       handleCpuAttack();
+  //     }, 2000)
+  //   } else {
+  //     dispatch({ type: 'SET_STATUS_MESSAGE', payload: `YOU WIN` });
+  //   }
+  // }[state.turn]);
 
   return (
-
     <Styled.GameContainer>
-    {/* <Styled.GameMessageContainer></Styled.GameMessageContainer> */}
-      <Styled.EnemyWatersContainer>
-        <EnemyWatersGameboard
-        handleGridOnClick={handleGridOnClick}></EnemyWatersGameboard>
-        <Styled.EnemyWatersHeading>ENEMY WATERS</Styled.EnemyWatersHeading>
-      </Styled.EnemyWatersContainer>
-      <Styled.FriendlyWatersContainer>
-        <FriendlyWatersGameboard></FriendlyWatersGameboard>
-        <Styled.FriendlyWatersHeading>
-          FRIENDLY WATERS
-        </Styled.FriendlyWatersHeading>
-      </Styled.FriendlyWatersContainer>
+      <Styled.MessageText>{state.statusMessage}</Styled.MessageText>
+      <Styled.GameboardsContainer>
+        <Styled.EnemyWatersContainer>
+          <EnemyWatersGameboard
+            handleGridOnClick={handleGridOnClick}
+          ></EnemyWatersGameboard>
+          <Styled.EnemyWatersHeading>ENEMY WATERS</Styled.EnemyWatersHeading>
+        </Styled.EnemyWatersContainer>
+        <Styled.FriendlyWatersContainer>
+          <FriendlyWatersGameboard></FriendlyWatersGameboard>
+          <Styled.FriendlyWatersHeading>
+            FRIENDLY WATERS
+          </Styled.FriendlyWatersHeading>
+        </Styled.FriendlyWatersContainer>
+      </Styled.GameboardsContainer>
     </Styled.GameContainer>
   );
 };
