@@ -38,6 +38,7 @@ const PlayerFactory = (name) => {
     } while ( isGridAttacked(xCoord, yCoord, opponentGameboard) === true)
 
     opponentGameboard.receiveAttack(xCoord, yCoord);
+    return { xCoord, yCoord }
   }
 
   return {

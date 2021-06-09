@@ -43,7 +43,7 @@ const Setup = () => {
         cpuGameboard.randomizeShipPlacement();
         console.log('changing game window');
         dispatch({ type: 'SET_GAMEWINDOW', payload: 'game' });
-        dispatch({ type: 'SET_STATUS_MESSAGE', payload: `${state.turn}'S TURN TO ATTACK`})
+        dispatch({ type: 'SET_TURN', payload: 'player'})
       }
     }
   };

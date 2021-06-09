@@ -19,7 +19,6 @@ export const Initialization = () => {
     const cpu = PlayerFactory('CPU');
 
     dispatch({ type: 'SET_PLAYERS', payload: { player, cpu } });
-    dispatch({ type: 'SET_TURN', payload: player.name})
     dispatch({ type: 'SET_GAMEWINDOW', payload: 'setup' });
 
     // console.log(state.players.player.gameboard.gameboardArray)
