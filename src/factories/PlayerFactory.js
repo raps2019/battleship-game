@@ -17,10 +17,36 @@ const PlayerFactory = (name) => {
     }
   };
 
+  const getRandomNumber = (minNum, maxNum) => {
+    const min = Math.ceil(minNum);
+    const max = Math.floor(maxNum);
+    return Math.floor(Math.random() * (max - min) + min);
+  };
+
+  const isGridAttacked = (xCoord, yCoord, gameboard) => {
+    const attackedGrid = gameboard.gameboardArray.find( grid => grid.xCoord === xCoord && grid.yCoord === yCoord)
+    return attackedGrid.isAttacked
+  }
+
+  const aiAttack = (opponentGameboard) => {
+
+    let xCoord;
+    let yCoord;
+
+    do {
+      xCoord = getRandomNumber(1,10);
+      yCoord = getRandomNumber(1,10);
+      
+    } while ( isGridAttacked(xCoord, yCoord, opponentGameboard) === true)
+
+    opponentGameboard.receiveAttack(xCoord, yCoord);
+  }
+
   return {
     name,
     gameboard,
     attack,
+    aiAttack,
   };
 };
 

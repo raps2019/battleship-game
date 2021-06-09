@@ -2,8 +2,10 @@ import styled from 'styled-components/macro';
 
 export const GameContainer = styled.div`
   display: grid;
+  grid-gap: 50px;
   grid-auto-flow: column;
   align-items: center;
+  justify-items: center;
   position: absolute
 `;
 
@@ -26,3 +28,4 @@ export const EnemyWatersHeading = styled.div`
 export const FriendlyWatersHeading = styled(EnemyWatersHeading)`
   font-size: 1rem;
 `;
+

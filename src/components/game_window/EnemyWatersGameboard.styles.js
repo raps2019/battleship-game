@@ -1,10 +1,10 @@
 import styled from 'styled-components/macro';
 import { GameboardContainer, GameboardGrid } from '../../GlobalStyles';
 
-export const ShipPlacementContainer = styled.div`
-  display: grid;
-  justify-items: center;
-`;
+// export const ShipPlacementContainer = styled.div`
+//   display: grid;
+//   justify-items: center;
+// `;
 
 export const Gameboard = styled(GameboardContainer)`
   width: 500px;

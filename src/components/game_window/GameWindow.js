@@ -10,19 +10,6 @@ const GameWindow = () => {
   const { state } = useContext(store);
 
   const gameWindow = state.gameWindow;
-  console.log(gameWindow)
-
-  // const renderChild = (gameWindow) => {
-  //   if (gameWindow === 'initialization') {
-  //     return <Initialization></Initialization>;
-  //   } else if (gameWindow === 'setup') {
-  //     return <Setup></Setup>;
-  //   } else if (gameWindow === 'game') {
-  //     return <Game></Game>;
-  //   } else {
-  //     return null;
-  //   }
-  // };
 
   return (
     <Styled.ContentContainer>
@@ -32,7 +19,7 @@ const GameWindow = () => {
             key={'initialization'}
             appear={true}
             in={gameWindow === 'initialization'}
-            timeout={{appear:0, enter: 0, exit: 5000}}
+            timeout={{ appear: 0, enter: 0, exit: 500 }}
             classNames="css-transition-"
           >
             <Styled.InitializeWindowContainer>
@@ -45,7 +32,7 @@ const GameWindow = () => {
             key={'setup'}
             // appear={true}
             in={gameWindow === 'setup'}
-            timeout={{appear:0, enter: 5000, exit: 0}}
+            timeout={{ appear: 0, enter: 500, exit: 500 }}
             classNames="css-transition-"
           >
             <Styled.SetupWindowContainer>
@@ -58,7 +45,7 @@ const GameWindow = () => {
             key={'game'}
             appear={true}
             in={gameWindow === 'game'}
-            timeout={{appear:5000, enter: 5000, exit: 5000}}
+            timeout={{ appear: 0, enter: 500, exit: 0 }}
             classNames="css-transition-"
           >
             <Styled.GameWindowContainer>

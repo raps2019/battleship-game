@@ -3,16 +3,11 @@ import { CSSTransition } from 'react-transition-group';
 import { store } from '../../StateProvider';
 import * as Styled from './EnemyWatersGameboard.styles';
 
-const EnemyWatersGameboard = () => {
+const EnemyWatersGameboard = (props) => {
   const { state, dispatch } = useContext(store);
   const cpuGameboard = state.players.cpu.gameboard;
-  const player = state.players.player;
 
-  const handleOnClick = (grid) => {
-    console.log('click');
-    player.attack(grid.xCoord, grid.yCoord, cpuGameboard);
-    dispatch({ type: 'SET_TURN', payload: state.turn + 1 });
-  };
+  const {handleGridOnClick} = props;
 
   return (
     <Styled.Gameboard>
@@ -41,7 +36,7 @@ const EnemyWatersGameboard = () => {
             gridSunk={grid.sunkShipPresent ? true : false}
             gridIsAttacked={grid.isAttacked ? true : false}
             onClick={
-              grid.isAttacked === false ? () => handleOnClick(grid) : null
+              grid.isAttacked === false ? () => handleGridOnClick(grid) : null
             }
             disabled={grid.isAttacked ? true : null}
           ></Styled.Grid>
