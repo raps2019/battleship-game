@@ -38,11 +38,11 @@ const Game = () => {
     }
 
     // dispatch({ type: 'SET_TURN', payload: 'cpu' });
-
     if (cpu.gameboard.shipsStillActive()) {
+      //ADD SET TIMEOUT BACK
       setTimeout(() => {
         dispatch({ type: 'SET_TURN', payload: 'cpu' });
-      }, 2000);
+      }, 0);
     } else {
       dispatch({ type: 'SET_STATUS_MESSAGE', payload: `YOU WIN` });
     }
@@ -59,18 +59,25 @@ const Game = () => {
 
     if (attackedGrid.shipPresent) {
       if (attackedGrid.sunkShipPresent) {
-        dispatch( {type: 'SET_STATUS_MESSAGE', payload: `CPU SUNK YOUR ${attackedGrid.shipPresent.toUpperCase()}`})
+        dispatch({
+          type: 'SET_STATUS_MESSAGE',
+          payload: `CPU SUNK YOUR ${attackedGrid.shipPresent.toUpperCase()}`,
+        });
       } else {
-        dispatch({ type: 'SET_STATUS_MESSAGE', payload: `CPU HIT YOUR ${attackedGrid.shipPresent.toUpperCase()}` })
+        dispatch({
+          type: 'SET_STATUS_MESSAGE',
+          payload: `CPU HIT YOUR ${attackedGrid.shipPresent.toUpperCase()}`,
+        });
       }
     } else {
-      dispatch({ type: 'SET_STATUS_MESSAGE', payload: `CPU MISSED` })
+      dispatch({ type: 'SET_STATUS_MESSAGE', payload: `CPU MISSED` });
     }
 
     if (player.gameboard.shipsStillActive()) {
+      //ADD SET TIMEOUT BACK
       setTimeout(() => {
         dispatch({ type: 'SET_TURN', payload: 'player' });
-      }, 2000);
+      }, 0);
     } else {
       dispatch({ type: 'SET_STATUS_MESSAGE', payload: `CPU WINS` });
     }
@@ -90,7 +97,7 @@ const Game = () => {
           //   payload: `${player.name}'S TURN TO ATTACK`,
           // });
           // dispatch({ type: 'SET_TURN', payload: 'player' });
-        }, 1000);
+        }, 0);
       }
     } else if (state.turn === 'player') {
       dispatch({

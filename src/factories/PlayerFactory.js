@@ -22,48 +22,65 @@ const PlayerFactory = (name) => {
   };
 
   const isGridAttacked = (xCoord, yCoord, gameboard) => {
-    const attackedGrid = gameboard.gameboardArray.find( grid => grid.xCoord === xCoord && grid.yCoord === yCoord)
-    return attackedGrid.isAttacked
-  }
+    const attackedGrid = gameboard.gameboardArray.find(
+      (grid) => grid.xCoord === xCoord && grid.yCoord === yCoord
+    );
+    return attackedGrid.isAttacked;
+  };
 
   const aiAttack = (playerGameboard) => {
-
     //Create array to store all unattacked grids
     const unattackedGrids = [];
     //Create array to store locations of ships that have been hit but not sunk
     const damagedGrids = [];
 
     //Populate unattackedGrids and damagedGrids arrays
-    playerGameboard.gameboardArray.forEach(grid => {
+    playerGameboard.gameboardArray.forEach((grid) => {
       if (grid.isAttacked === false) {
-        unattackedGrids.push(grid)
+        unattackedGrids.push(grid);
       } else {
         if (grid.shipPresent && grid.sunkShipPresent === false) {
-          damagedGrids.push(grid)
+          damagedGrids.push(grid);
         }
       }
     });
 
+    console.log(damagedGrids);
 
+    //Locate grids that contain two adjacent hits
+    let potentialDetectedShip = [];
 
+    damagedGrids.forEach((damagedGrid) => {
+      if (
+        damagedGrids.some(
+          (grid) =>
+            (grid.xCoord === damagedGrid.xCoord + 1 &&
+              grid.yCoord === damagedGrid.yCoord) ||
+            (grid.xCoord === damagedGrid.xCoord - 1 &&
+              grid.yCoord === damagedGrid.yCoord) ||
+            (grid.xCoord === damagedGrid.xCoord &&
+              grid.yCoord === damagedGrid.yCoord + 1) ||
+            (grid.xCoord === damagedGrid.xCoord &&
+              grid.yCoord === damagedGrid.yCoord - 1)
+        )
+      ) {
+        potentialDetectedShip.push(damagedGrid)
+      };
+    });
 
-
-
-
-
+    console.log(potentialDetectedShip)
 
     let xCoord;
     let yCoord;
 
     do {
-      xCoord = getRandomNumber(1,11);
-      yCoord = getRandomNumber(1,11);
-      
-    } while ( isGridAttacked(xCoord, yCoord, playerGameboard) === true)
+      xCoord = getRandomNumber(1, 11);
+      yCoord = getRandomNumber(1, 11);
+    } while (isGridAttacked(xCoord, yCoord, playerGameboard) === true);
 
     playerGameboard.receiveAttack(xCoord, yCoord);
-    return { xCoord, yCoord }
-  }
+    return { xCoord, yCoord };
+  };
 
   return {
     name,
