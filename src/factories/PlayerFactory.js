@@ -5,15 +5,15 @@ const PlayerFactory = (name) => {
   const gameboard = GameboardFactory();
 
   //Perform an attack on the opponent gameboard given coordinates as arguments
-  const attack = (xCoord, yCoord, opponentGameboard) => {
+  const attack = (xCoord, yCoord, cpuGameboard) => {
     //check if opponent gameboard grid is attacked
     if (
-      opponentGameboard.gameboardArray.find(
+      cpuGameboard.gameboardArray.find(
         (grid) => grid.xCoord === xCoord && grid.yCoord === yCoord
       ).isAttacked === false
     ) {
       //run gameboard method to receive attack if grid is not already attacked
-      opponentGameboard.receiveAttack(xCoord, yCoord);
+      cpuGameboard.receiveAttack(xCoord, yCoord);
     }
   };
 
@@ -26,7 +26,31 @@ const PlayerFactory = (name) => {
     return attackedGrid.isAttacked
   }
 
-  const aiAttack = (opponentGameboard) => {
+  const aiAttack = (playerGameboard) => {
+
+    //Create array to store all unattacked grids
+    const unattackedGrids = [];
+    //Create array to store locations of ships that have been hit but not sunk
+    const damagedGrids = [];
+
+    //Populate unattackedGrids and damagedGrids arrays
+    playerGameboard.gameboardArray.forEach(grid => {
+      if (grid.isAttacked === false) {
+        unattackedGrids.push(grid)
+      } else {
+        if (grid.shipPresent && grid.sunkShipPresent === false) {
+          damagedGrids.push(grid)
+        }
+      }
+    });
+
+
+
+
+
+
+
+
 
     let xCoord;
     let yCoord;
@@ -35,9 +59,9 @@ const PlayerFactory = (name) => {
       xCoord = getRandomNumber(1,11);
       yCoord = getRandomNumber(1,11);
       
-    } while ( isGridAttacked(xCoord, yCoord, opponentGameboard) === true)
+    } while ( isGridAttacked(xCoord, yCoord, playerGameboard) === true)
 
-    opponentGameboard.receiveAttack(xCoord, yCoord);
+    playerGameboard.receiveAttack(xCoord, yCoord);
     return { xCoord, yCoord }
   }
 

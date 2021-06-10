@@ -7,14 +7,13 @@ import { store } from '../../StateProvider';
 
 const Game = () => {
   const { state, dispatch } = useContext(store);
-  const cpuGameboard = state.players.cpu.gameboard;
   const player = state.players.player;
   const cpu = state.players.cpu;
 
   const handleGridOnClick = (gridAttacked) => {
-    player.attack(gridAttacked.xCoord, gridAttacked.yCoord, cpuGameboard);
+    player.attack(gridAttacked.xCoord, gridAttacked.yCoord, cpu.gameboard);
 
-    const attackedGrid = cpuGameboard.gameboardArray.find(
+    const attackedGrid = cpu.gameboard.gameboardArray.find(
       (grid) =>
         gridAttacked.xCoord === grid.xCoord &&
         gridAttacked.yCoord === grid.yCoord
@@ -40,7 +39,7 @@ const Game = () => {
 
     // dispatch({ type: 'SET_TURN', payload: 'cpu' });
 
-    if (cpuGameboard.shipsStillActive()) {
+    if (cpu.gameboard.shipsStillActive()) {
       setTimeout(() => {
         dispatch({ type: 'SET_TURN', payload: 'cpu' });
       }, 2000);
@@ -50,38 +49,66 @@ const Game = () => {
   };
 
   const handleCpuAttack = () => {
-    cpu.aiAttack(player.gameboard);
-    dispatch({ type: 'SET_TURN', payload: state.players.player.name });
+    const attackedCoords = cpu.aiAttack(player.gameboard);
+
+    const attackedGrid = player.gameboard.gameboardArray.find(
+      (grid) =>
+        grid.xCoord === attackedCoords.xCoord &&
+        grid.yCoord === attackedCoords.yCoord
+    );
+
+    if (attackedGrid.shipPresent) {
+      if (attackedGrid.sunkShipPresent) {
+        dispatch( {type: 'SET_STATUS_MESSAGE', payload: `CPU SUNK YOUR ${attackedGrid.shipPresent.toUpperCase()}`})
+      } else {
+        dispatch({ type: 'SET_STATUS_MESSAGE', payload: `CPU HIT YOUR ${attackedGrid.shipPresent.toUpperCase()}` })
+      }
+    } else {
+      dispatch({ type: 'SET_STATUS_MESSAGE', payload: `CPU MISSED` })
+    }
+
+    if (player.gameboard.shipsStillActive()) {
+      setTimeout(() => {
+        dispatch({ type: 'SET_TURN', payload: 'player' });
+      }, 2000);
+    } else {
+      dispatch({ type: 'SET_STATUS_MESSAGE', payload: `CPU WINS` });
+    }
   };
 
   useEffect(() => {
     if (state.turn === 'cpu') {
-      if (cpuGameboard.shipsStillActive()) {
+      if (cpu.gameboard.shipsStillActive()) {
         dispatch({
           type: 'SET_STATUS_MESSAGE',
           payload: `CPU IS ATTACKING`,
         });
         setTimeout(() => {
           handleCpuAttack();
-          dispatch({
-            type: 'SET_STATUS_MESSAGE',
-            payload: `${player.name}'S TURN TO ATTACK`,
-          });
-          dispatch({ type: 'SET_TURN', payload: 'player' });
-        }, 3000);
+          // dispatch({
+          //   type: 'SET_STATUS_MESSAGE',
+          //   payload: `${player.name}'S TURN TO ATTACK`,
+          // });
+          // dispatch({ type: 'SET_TURN', payload: 'player' });
+        }, 1000);
       }
+    } else if (state.turn === 'player') {
+      dispatch({
+        type: 'SET_STATUS_MESSAGE',
+        payload: `${player.name}'S TURN TO ATTACK`,
+      });
     }
   }, [state.turn]);
 
-  useEffect(() => {
-    dispatch({
-      type: 'SET_STATUS_MESSAGE',
-      payload: `${player.name}'S TURN TO ATTACK`,
-    });
-  }, []);
+  // useEffect(() => {
+  //   dispatch({
+  //     type: 'SET_STATUS_MESSAGE',
+  //     payload: `${player.name}'S TURN TO ATTACK`,
+  //   });
+  // }, []);
 
   // useEffect(() => {
-  //   if (cpuGameboard.shipsStillActive()) {
+  //   if (cpu.gameboard.shipsStillActive()) {
   //     setTimeout(() => {
   //       handleCpuAttack();
   //     }, 2000)

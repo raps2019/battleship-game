@@ -9,6 +9,8 @@ import { GameboardContainer, GameboardGrid, Button } from '../../GlobalStyles';
 export const Gameboard = styled(GameboardContainer)``;
 
 export const Grid = styled(GameboardGrid)`
+  cursor: ${(props) => (props.gridOccupied ? 'not-allowed' : 'pointer')};
+
   opacity: ${(props) => (props.gridOccupied === true ? '0.5' : null)};
   opacity: ${(props) => (props.gridHovered === true ? '0.1' : null)};
   opacity: ${(props) =>

@@ -13,16 +13,20 @@ export const Gameboard = styled(GameboardContainer)`
 
 export const Grid = styled(GameboardGrid)`
   cursor: ${(props) => (props.gridIsAttacked ? 'not-allowed' : 'crosshair')};
-  background-color: ${(props) => (props.gridOccupied ? '#8F8F88' : null)};
+  /* background-color: ${(props) => (props.gridOccupied ? '#8F8F88' : null)}; */
   background-color: ${(props) => (props.gridMiss ? 'white' : null)};
   background-color: ${(props) => (props.gridHit ? 'red' : null)};
   background-color: ${(props) => (props.gridSunk ? 'maroon' : null)};
   opacity: ${(props) =>
-    props.gridOccupied || props.gridMiss || props.gridHit || props.gridSunk
+    props.gridMiss || props.gridHit || props.gridSunk
       ? '0.5'
       : null};
 
   transition: all 500ms cubic-bezier(0.33, 1, 0.68, 1);
+
+  &:hover {
+    opacity: ${(props) => (props.gridIsAttacked ? null : '0.5')}
+  }
 
   &.css-transition--appear {
     transform: scale(0);
