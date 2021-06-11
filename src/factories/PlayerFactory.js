@@ -45,41 +45,157 @@ const PlayerFactory = (name) => {
       }
     });
 
-    console.log(damagedGrids);
+    //initialize array to store potential ships
+    let potentialShipGrids = [];
 
-    //Locate grids that contain two adjacent hits
-    let potentialDetectedShip = [];
+    //Locate grids that contain two adjacent hits and push to potentialShipGrids array
 
     damagedGrids.forEach((damagedGrid) => {
       if (
         damagedGrids.some(
           (grid) =>
-            (grid.xCoord === damagedGrid.xCoord + 1 &&
-              grid.yCoord === damagedGrid.yCoord) ||
             (grid.xCoord === damagedGrid.xCoord - 1 &&
               grid.yCoord === damagedGrid.yCoord) ||
+            (grid.xCoord === damagedGrid.xCoord + 1 &&
+              grid.yCoord === damagedGrid.yCoord) ||
             (grid.xCoord === damagedGrid.xCoord &&
-              grid.yCoord === damagedGrid.yCoord + 1) ||
+              grid.yCoord === damagedGrid.yCoord - 1) ||
             (grid.xCoord === damagedGrid.xCoord &&
-              grid.yCoord === damagedGrid.yCoord - 1)
+              grid.yCoord === damagedGrid.yCoord + 1)
         )
       ) {
-        potentialDetectedShip.push(damagedGrid)
-      };
+        potentialShipGrids.push(damagedGrid);
+      }
     });
 
-    console.log(potentialDetectedShip)
+    const possibleTargets = [];
 
-    let xCoord;
-    let yCoord;
+    if (potentialShipGrids.length > 0) {
+      const axis =
+        potentialShipGrids[0].xCoord === potentialShipGrids[1].xCoord
+          ? 'yAxis'
+          : 'xAxis';
 
-    do {
-      xCoord = getRandomNumber(1, 11);
-      yCoord = getRandomNumber(1, 11);
-    } while (isGridAttacked(xCoord, yCoord, playerGameboard) === true);
+      if (axis === 'xAxis') {
+        //Check if grids are available to the left
+        if (potentialShipGrids[0].xCoord > 1) {
+          possibleTargets.push({
+            xCoord: potentialShipGrids[0].xCoord - 1,
+            yCoord: potentialShipGrids[0].yCoord,
+          });
+        }
+        //Check for the farthest right coordinate in sequence
+        let farRightCoordinate = 0;
+        potentialShipGrids.forEach((grid) => {
+          if (grid.xCoord > farRightCoordinate) {
+            farRightCoordinate = grid.xCoord;
+          }
+        });
+        //Check if grids are available to the right
+        if (farRightCoordinate < 10) {
+          possibleTargets.push({
+            xCoord: farRightCoordinate + 1,
+            yCoord: potentialShipGrids[0].yCoord,
+          });
+        }
+      } else if (axis === 'yAxis') {
+        //Check if grids are available to the top
+        if (potentialShipGrids[0].yCoord > 1) {
+          possibleTargets.push({
+            xCoord: potentialShipGrids[0].xCoord,
+            yCoord: potentialShipGrids[0].yCoord - 1,
+          });
+        }
+        //Check for the farthest bottom coordinate in sequence
+        let farBottomCoordinate = 0;
+        potentialShipGrids.forEach((grid) => {
+          if (grid.yCoord > farBottomCoordinate) {
+            farBottomCoordinate = grid.yCoord;
+          }
+        });
+        //Check if grids are available to the bottom
+        if (farBottomCoordinate < 10) {
+          possibleTargets.push({
+            xCoord: potentialShipGrids[0].xCoord,
+            yCoord: farBottomCoordinate + 1,
+          });
+        }
+        console.log(possibleTargets);
+      }
+    }
 
-    playerGameboard.receiveAttack(xCoord, yCoord);
-    return { xCoord, yCoord };
+    //filter possible targets to remove targets that have been attacked
+
+    const filteredPossibleTargets = possibleTargets.filter(
+      (target) =>
+        playerGameboard.gameboardArray.find(
+          (grid) =>
+            grid.xCoord === target.xCoord && grid.yCoord === target.yCoord
+        ).isAttacked !== true
+    );
+
+    if (filteredPossibleTargets.length > 0) {
+      playerGameboard.receiveAttack(
+        filteredPossibleTargets[0].xCoord,
+        filteredPossibleTargets[0].yCoord
+      );
+      return {
+        xCoord: filteredPossibleTargets[0].xCoord,
+        yCoord: filteredPossibleTargets[0].yCoord,
+      };
+    } else if (damagedGrids.length > 0) {
+      const soloTargetChoices = [
+        { xCoord: damagedGrids[0].xCoord - 1, yCoord: damagedGrids[0].yCoord },
+        { xCoord: damagedGrids[0].xCoord + 1, yCoord: damagedGrids[0].yCoord },
+        { xCoord: damagedGrids[0].xCoord, yCoord: damagedGrids[0].yCoord - 1 },
+        { xCoord: damagedGrids[0].xCoord, yCoord: damagedGrids[0].yCoord + 1 },
+      ];
+
+      const filteredSoloTargetChoices = [];
+
+      soloTargetChoices.forEach((target) => {
+        if (target.xCoord > 0 && target.xCoord < 11) {
+          if (target.yCoord > 0 && target.yCoord < 11) {
+            if (
+              playerGameboard.gameboardArray.find(
+                (grid) =>
+                  grid.xCoord === target.xCoord && grid.yCoord === target.yCoord
+              ).isAttacked === false
+            ) {
+              filteredSoloTargetChoices.push(target);
+            }
+          }
+        }
+      });
+      let xCoord = filteredSoloTargetChoices[0].xCoord;
+      let yCoord = filteredSoloTargetChoices[0].yCoord;
+      playerGameboard.receiveAttack(xCoord, yCoord);
+      return {xCoord, yCoord}
+    } else {
+      let xCoord;
+      let yCoord;
+
+      do {
+        xCoord = getRandomNumber(1, 11);
+        yCoord = getRandomNumber(1, 11);
+      } while (isGridAttacked(xCoord, yCoord, playerGameboard) === true);
+
+      playerGameboard.receiveAttack(xCoord, yCoord);
+      return { xCoord, yCoord };
+    }
+
+    // console.log(potentialShipGrids);
+
+    // let xCoord;
+    // let yCoord;
+
+    // do {
+    //   xCoord = getRandomNumber(1, 11);
+    //   yCoord = getRandomNumber(1, 11);
+    // } while (isGridAttacked(xCoord, yCoord, playerGameboard) === true);
+
+    // playerGameboard.receiveAttack(xCoord, yCoord);
+    // return { xCoord, yCoord };
   };
 
   return {
