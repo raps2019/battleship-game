@@ -7,7 +7,7 @@ const EnemyWatersGameboard = (props) => {
   const { state, dispatch } = useContext(store);
   const cpuGameboard = state.players.cpu.gameboard;
 
-  const {handleGridOnClick} = props;
+  const { handleGridOnClick } = props;
 
   return (
     <Styled.Gameboard>
@@ -35,9 +35,8 @@ const EnemyWatersGameboard = (props) => {
             }
             gridSunk={grid.sunkShipPresent ? true : false}
             gridIsAttacked={grid.isAttacked ? true : false}
-            onClick={
-              grid.isAttacked === false && state.turn === 'player' ? () => handleGridOnClick(grid) : null
-            }
+            onClick={() => handleGridOnClick(grid)}
+            playerTurn={state.turn === 'player' ? true : false}
             disabled={grid.isAttacked ? true : null}
           ></Styled.Grid>
         </CSSTransition>

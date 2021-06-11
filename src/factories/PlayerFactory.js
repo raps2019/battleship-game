@@ -170,7 +170,7 @@ const PlayerFactory = (name) => {
       let xCoord = filteredSoloTargetChoices[0].xCoord;
       let yCoord = filteredSoloTargetChoices[0].yCoord;
       playerGameboard.receiveAttack(xCoord, yCoord);
-      return {xCoord, yCoord}
+      return { xCoord, yCoord };
     } else {
       let xCoord;
       let yCoord;

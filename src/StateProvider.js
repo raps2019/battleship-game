@@ -9,6 +9,7 @@ const StateProvider = ({ children }) => {
     players: [],
     turn: '',
     statusMessage: 'test',
+    statusMessageColor: 'white'
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -38,6 +39,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         statusMessage: payload,
+      };
+      case 'SET_STATUS_MESSAGE_COLOR':
+      return {
+        ...state,
+        statusMessageColor: payload,
       }
     default:
       throw new Error('Unexpected Action');

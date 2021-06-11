@@ -12,14 +12,15 @@ export const Gameboard = styled(GameboardContainer)`
 `;
 
 export const Grid = styled(GameboardGrid)`
+  pointer-events: ${props => props.playerTurn ? null : 'none'};
   cursor: ${(props) => (props.gridIsAttacked ? 'not-allowed' : 'crosshair')};
   /* background-color: ${(props) => (props.gridOccupied ? '#8F8F88' : null)}; */
-  background-color: ${(props) => (props.gridMiss ? 'white' : null)};
+  background-color: ${(props) => (props.gridMiss ? 'cornflowerblue' : null)};
   background-color: ${(props) => (props.gridHit ? 'red' : null)};
   background-color: ${(props) => (props.gridSunk ? 'maroon' : null)};
   opacity: ${(props) =>
     props.gridMiss || props.gridHit || props.gridSunk
-      ? '0.5'
+      ? '0.55'
       : null};
 
   transition: all 500ms cubic-bezier(0.33, 1, 0.68, 1);
@@ -42,8 +43,6 @@ export const Grid = styled(GameboardGrid)`
 
   &.css-transition--enter {
     transform: scale(0);
-    background-color: ${(props) => (props.gridHit ? 'orange' : null)};
-    background-color: ${(props) => (props.gridMiss ? 'cornflowerblue' : null)};
     opacity: 1;
   }
 

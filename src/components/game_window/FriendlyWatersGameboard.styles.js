@@ -7,13 +7,13 @@ import { GameboardContainer, GameboardGrid } from '../../GlobalStyles';
 // `;
 
 export const Gameboard = styled(GameboardContainer)`
-  width: 350px;
-  height: 350px;
+  width: 500px;
+  height: 500px;
 `;
 
 export const Grid = styled(GameboardGrid)`
   background-color: ${(props) => (props.gridOccupied ? '#8F8F88' : null)};
-  background-color: ${(props) => (props.gridMiss ? 'white' : null)};
+  background-color: ${(props) => (props.gridMiss ? 'cornflowerblue' : null)};
   background-color: ${(props) => (props.gridHit ? 'red' : null)};
   background-color: ${(props) => (props.gridSunk ? 'maroon' : null)};
   opacity: ${(props) =>

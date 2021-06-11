@@ -25,10 +25,18 @@ const Game = () => {
           type: 'SET_STATUS_MESSAGE',
           payload: `YOU SUNK THE ENEMY'S ${attackedGrid.shipPresent.toUpperCase()}`,
         });
+        dispatch({
+          type: 'SET_STATUS_MESSAGE_COLOR',
+          payload: `red`,
+        });
       } else {
         dispatch({
           type: 'SET_STATUS_MESSAGE',
           payload: `YOU HIT AN ENEMY SHIP`,
+        });
+        dispatch({
+          type: 'SET_STATUS_MESSAGE_COLOR',
+          payload: `darkorange`,
         });
       }
       dispatch({ type: 'SET_TURN', payload: null });
@@ -42,7 +50,7 @@ const Game = () => {
       //ADD SET TIMEOUT BACK
       setTimeout(() => {
         dispatch({ type: 'SET_TURN', payload: 'cpu' });
-      }, 0);
+      }, 2000);
     } else {
       dispatch({ type: 'SET_STATUS_MESSAGE', payload: `YOU WIN` });
     }
@@ -63,10 +71,18 @@ const Game = () => {
           type: 'SET_STATUS_MESSAGE',
           payload: `CPU SUNK YOUR ${attackedGrid.shipPresent.toUpperCase()}`,
         });
+        dispatch({
+          type: 'SET_STATUS_MESSAGE_COLOR',
+          payload: `red`,
+        });
       } else {
         dispatch({
           type: 'SET_STATUS_MESSAGE',
           payload: `CPU HIT YOUR ${attackedGrid.shipPresent.toUpperCase()}`,
+        });
+        dispatch({
+          type: 'SET_STATUS_MESSAGE_COLOR',
+          payload: `orange`,
         });
       }
     } else {
@@ -77,7 +93,7 @@ const Game = () => {
       //ADD SET TIMEOUT BACK
       setTimeout(() => {
         dispatch({ type: 'SET_TURN', payload: 'player' });
-      }, 0);
+      }, 2000);
     } else {
       dispatch({ type: 'SET_STATUS_MESSAGE', payload: `CPU WINS` });
     }
@@ -90,6 +106,10 @@ const Game = () => {
           type: 'SET_STATUS_MESSAGE',
           payload: `CPU IS ATTACKING`,
         });
+        dispatch({
+          type: 'SET_STATUS_MESSAGE_COLOR',
+          payload: `white`,
+        });
         setTimeout(() => {
           handleCpuAttack();
           // dispatch({
@@ -97,12 +117,16 @@ const Game = () => {
           //   payload: `${player.name}'S TURN TO ATTACK`,
           // });
           // dispatch({ type: 'SET_TURN', payload: 'player' });
-        }, 0);
+        }, 2500);
       }
     } else if (state.turn === 'player') {
       dispatch({
         type: 'SET_STATUS_MESSAGE',
         payload: `${player.name}'S TURN TO ATTACK`,
+      });
+      dispatch({
+        type: 'SET_STATUS_MESSAGE_COLOR',
+        payload: `white`,
       });
     }
   }, [state.turn]);
@@ -126,7 +150,22 @@ const Game = () => {
 
   return (
     <Styled.GameContainer>
-      <Styled.MessageText>{state.statusMessage}</Styled.MessageText>
+      <Styled.MessageTextContainer>
+        <TransitionGroup
+        component={null}>
+          <CSSTransition
+            key={state.statusMessage}
+            // in={true}
+            // appear={true}
+            timeout={500}
+            classNames="css-transition-"
+          >
+            <Styled.MessageText
+            statusMessageColor={state.statusMessageColor}>{state.statusMessage}</Styled.MessageText>
+          </CSSTransition>
+        </TransitionGroup>
+      </Styled.MessageTextContainer>
+
       <Styled.GameboardsContainer>
         <Styled.EnemyWatersContainer>
           <EnemyWatersGameboard
