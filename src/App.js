@@ -6,20 +6,16 @@ import { GlobalStyles } from './GlobalStyles';
 import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 
-
-
-
 function App() {
-
   return (
-    <Styled.AppContainer className="App">
-    <GlobalStyles/>
-      <StateProvider>
+    <StateProvider>
+      <Styled.AppContainer className="App">
+        <GlobalStyles />
         <Header></Header>
         <GameWindow></GameWindow>
         <Footer></Footer>
-      </StateProvider>
-    </Styled.AppContainer>
+      </Styled.AppContainer>
+    </StateProvider>
   );
 }
 

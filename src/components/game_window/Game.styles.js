@@ -1,55 +1,65 @@
 import styled from 'styled-components/macro';
 
 export const GameContainer = styled.div`
-  display: grid;
-  grid-gap: 50px;
-  align-items: center;
-  justify-items: center;
-  position: absolute;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-around;
+  align-items: stretch;
+  /* position: absolute; */
 `;
 
 export const GameboardsContainer = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 50px;
-  align-items: center;
+  display: flex;
+  /* flex-direction: row; */
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 20px;
 `;
 
 export const EnemyWatersContainer = styled.div`
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   align-items: center;
-  justify-items: center;
-  grid-gap: 50px;
+
+  width: 35vw;
+  height: 35vw;
+
+  @media only screen and (max-device-width: 1200px) {
+  width: 45vw;
+  height: 45vw;
+}
+
+@media only screen and (max-device-width: 720px) {
+  width: 35vh;
+  height: 35vh;
+}
 `;
 
 export const FriendlyWatersContainer = styled(EnemyWatersContainer)`
-  display: grid;
 `;
 
-export const EnemyWatersHeading = styled.div`
+export const EnemyWatersHeading = styled.h2`
+  font-size: 0.7rem; 
   font-family: 'Russo One', sans-serif;
-  letter-spacing: 5px;
-  font-size: 1.5rem;
+  letter-spacing: 0.3rem;
   color: white;
 `;
 
 export const FriendlyWatersHeading = styled(EnemyWatersHeading)``;
 
-export const MessageTextContainer = styled.div`
-  display: grid;
-  justify-items: center;
-  align-items: center;
+export const MessageTextContainer = styled.h2`
+  display: flex;
+  justify-content: center;
   position: relative;
-  width: 100vw;
-  height: 50px;
 `;
 
 export const MessageText = styled.h2`
   display: grid;
-  text-align: center;
   font-family: 'Russo One', sans-serif;
-  letter-spacing: 5px;
-  font-size: 1.5rem;
+  font-size: 1rem;
+  letter-spacing: 0.3rem;
   color: ${(props) => (props.statusMessageColor)};
   position: absolute;
   /* transition: all 500ms ease-in-out; */

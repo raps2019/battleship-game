@@ -2,26 +2,34 @@ import styled from 'styled-components/macro'
 import { Button } from '../../GlobalStyles'
 
 export const Form = styled.form`
-  display: grid;
-  position: absolute;
-  align-content: center;
-  justify-items: center;
+  position:relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5%;
+  justify-content: center;
   height: 100%;
+
+  @media only screen and (min-device-width: 540px) and (max-device-width: 1024px) {
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 540px) {
+}
   
 `
 
 export const Label = styled.label`
 font-family: 'Russo One', sans-serif;
 letter-spacing: 5px;
-font-size: 1.8rem;
+/* font-size: 1.8rem; */
 color: white;
 `
 
 export const Input = styled.input`
 font-family: 'Istok Web', sans-serif;
-font-size: 2rem;
+/* font-size: 2rem; */
 letter-spacing: 5px;
-margin: 30px 0 50px 0;
+/* margin: 30px 0 50px 0; */
 color: white;
 text-align: center;
 border-radius: 0.5rem;

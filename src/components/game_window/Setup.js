@@ -110,16 +110,17 @@ const Setup = () => {
   });
 
   return (
-    <Styled.ContentContainer>
+    <Styled.SetupContainer>
       <Styled.MessageText>{state.statusMessage}</Styled.MessageText>
-      <Styled.ToggleOrientationButton onClick={() => handleChangeOrientation()}>
-        {orientation === 'xAxis' ? 'X-AXIS (SPACEBAR)' : 'Y-AXIS (SPACEBAR)'}
-      </Styled.ToggleOrientationButton>
+    
       <ShipPlacementGameboard
       handleOnClick={handleOnClick}
       handleOnMouseEnter={handleOnMouseEnter}
       checkHoveredGrid={checkHoveredGrid}></ShipPlacementGameboard>
-    </Styled.ContentContainer>
+        <Styled.ToggleOrientationButton onClick={() => handleChangeOrientation()}>
+        {orientation === 'xAxis' ? 'X-AXIS (SPACEBAR)' : 'Y-AXIS (SPACEBAR)'}
+      </Styled.ToggleOrientationButton>
+    </Styled.SetupContainer>
   );
 };
 

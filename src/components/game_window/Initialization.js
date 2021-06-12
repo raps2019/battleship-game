@@ -15,7 +15,13 @@ export const Initialization = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const player = PlayerFactory(name);
+    let playerName = name;
+
+    if (playerName === '') {
+      playerName = 'Player1'
+    }
+
+    const player = PlayerFactory(playerName);
     const cpu = PlayerFactory('CPU');
 
     dispatch({ type: 'SET_PLAYERS', payload: { player, cpu } });

@@ -1,70 +1,71 @@
 import styled from 'styled-components/macro';
 
 export const ContentContainer = styled.div`
-position:relative;
-display: grid;
+position: relative;
+display: flex;
 align-items: center;
-justify-items: center;
-align-content: center;
+justify-content: center;
+width: 100%;
+height: 100%;
 `
 
-export const InitializeWindowContainer = styled.div`
-  display: grid;
-  position: absolute;
-  align-items: center;
-  justify-items: center;
-  align-content: center;
-  transition: all 500ms cubic-bezier(0.33, 1, 0.68, 1);
 
-  &.css-transition--appear {
-    transform: scale(0.25);
-    opacity: 0.25;
-  
-  }
 
-  &.css-transition--appear-active {
-    transform: scale(0.25);
-    opacity: 0.25;
-  }
 
-  &.css-transition--appear-done {
-    transform: scale(1);
-    opacity: 1;
-  }
+export const Content = styled.div`
 
-  &.css-transition--enter {
-    opacity: 0;
-    transform: scale(0.0);
-  }
+position: absolute;
+width: 100%;
+height: 100%;
 
-  &.css-transition--enter-active {
-    /* opacity: 1;
-    transform: scale(0.0); */
-  }
 
-  &.css-transition--enter-done {
-    opacity: 1;
-    transform: scale(1);
-  }
+transition: all 500ms cubic-bezier(0.33, 1, 0.68, 1);
 
-  &.css-transition--exit {
-    opacity: 1;
-    transform: scale(1);
+&.css-transition--appear {
+  /* transform: scale(0.25);
+  opacity: 0.25; */
+}
 
-  }
+&.css-transition--appear-active {
+  /* transform: scale(0.25); */
+  /* opacity: 0.25; */
+}
 
-  &.css-transition--exit-active {
-    opacity: 0.0;
-    transform: scale(0.0);
-  }
+&.css-transition--appear-done {
+  /* transform: scale(1); */
+  opacity: 1;
+}
 
-  &.css-transition--exit-done {
-    opacity: 0.0;
-    transform: scale(0.0);
-  }
-`;
+&.css-transition--enter {
+  opacity: 0;
+  transform: scale(0.0);
+}
 
-export const SetupWindowContainer = styled(InitializeWindowContainer)``;
+&.css-transition--enter-active {
+  opacity: 0;
+  /* transform: scale(0.0); */ */
+}
 
-export const GameWindowContainer = styled(InitializeWindowContainer)`
-`;
+&.css-transition--enter-done {
+  opacity: 1;
+  /* transform: scale(1); */
+}
+
+&.css-transition--exit {
+  /* opacity: 1; */
+  /* transform: scale(1); */
+
+}
+
+&.css-transition--exit-active {
+  opacity: 0;
+  /* transform: scale(0.0); */
+}
+
+&.css-transition--exit-done {
+  opacity: 0.0;
+  /* transform: scale(0.0); */
+}
+`
+
+

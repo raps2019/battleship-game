@@ -8,6 +8,7 @@ export const FooterContainer = styled.div`
 
 export const FooterText = styled.div`
   color: whitesmoke;
-  font-family: 'Russo One', sans-serif;
-  letter-spacing: 5px;
+  font-family: 'Istok Web', sans-serif;
+  letter-spacing: 0.1em;
+  font-size: 0.5em;
   `

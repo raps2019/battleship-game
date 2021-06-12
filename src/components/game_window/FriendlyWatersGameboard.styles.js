@@ -7,8 +7,8 @@ import { GameboardContainer, GameboardGrid } from '../../GlobalStyles';
 // `;
 
 export const Gameboard = styled(GameboardContainer)`
-  width: 500px;
-  height: 500px;
+  width: 100%;
+  height: 100%;
 `;
 
 export const Grid = styled(GameboardGrid)`

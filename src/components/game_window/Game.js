@@ -10,6 +10,8 @@ const Game = () => {
   const player = state.players.player;
   const cpu = state.players.cpu;
 
+  console.log(player.name)
+
   const handleGridOnClick = (gridAttacked) => {
     player.attack(gridAttacked.xCoord, gridAttacked.yCoord, cpu.gameboard);
 
@@ -122,7 +124,7 @@ const Game = () => {
     } else if (state.turn === 'player') {
       dispatch({
         type: 'SET_STATUS_MESSAGE',
-        payload: `${player.name}'S TURN TO ATTACK`,
+        payload: `${player.name.toUpperCase()}'S TURN TO ATTACK`,
       });
       dispatch({
         type: 'SET_STATUS_MESSAGE_COLOR',

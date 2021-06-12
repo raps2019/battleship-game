@@ -12,8 +12,6 @@ export const GlobalStyles = createGlobalStyle`
 
 export const GameboardContainer = styled.div`
 display: grid;
-height: 500px;
-width: 500px;
 grid-gap: 5px;
 grid-template-columns: repeat( 10, 1fr );
 `
@@ -29,7 +27,7 @@ opacity: 0.25;
 export const Button = styled.button`
   font-family: 'Russo One', sans-serif;
   letter-spacing: 5px;
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
 	padding: 5px 25px;
 	color: white;
   box-shadow: 0 0 15px 5px transparent;

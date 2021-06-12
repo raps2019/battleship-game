@@ -1,6 +1,7 @@
 import GameboardFactory from './GameboardFactory';
 
 const PlayerFactory = (name) => {
+
   //Run gameboard factory function to initialize player/cpu gameboard
   const gameboard = GameboardFactory();
 

@@ -6,7 +6,17 @@ import { GameboardContainer, GameboardGrid, Button } from '../../GlobalStyles';
 //   justify-items: center;
 // `;
 
-export const Gameboard = styled(GameboardContainer)``;
+export const Gameboard = styled(GameboardContainer)`
+  width: 40vw;
+  height: 40vw;
+  
+  
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  width: 95vw;
+  height: 95vw;
+}
+
+`;
 
 export const Grid = styled(GameboardGrid)`
   cursor: ${(props) => (props.gridOccupied ? 'not-allowed' : 'pointer')};
