@@ -10,8 +10,6 @@ const Game = () => {
   const player = state.players.player;
   const cpu = state.players.cpu;
 
-  console.log(player.name)
-
   const handleGridOnClick = (gridAttacked) => {
     player.attack(gridAttacked.xCoord, gridAttacked.yCoord, cpu.gameboard);
 
@@ -157,8 +155,6 @@ const Game = () => {
         component={null}>
           <CSSTransition
             key={state.statusMessage}
-            // in={true}
-            // appear={true}
             timeout={500}
             classNames="css-transition-"
           >

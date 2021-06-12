@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
-import { GameboardContainer, GameboardGrid, Button } from '../../GlobalStyles';
+import { Button } from '../../GlobalStyles';
+import { MessageTextContainer, MessageText } from './Game.styles';
 
 
 export const SetupContainer = styled.div`
@@ -7,7 +8,7 @@ export const SetupContainer = styled.div`
   height: 100%;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
 `;
 
 export const ToggleOrientationButton = styled(Button)`
@@ -17,9 +18,9 @@ export const ToggleOrientationButton = styled(Button)`
   }
 `;
 
-export const MessageText = styled.div`
-  font-family: 'Russo One', sans-serif;
-  letter-spacing: 5px;
-  color: white;
+export const SetupMessageTextContainer = styled(MessageTextContainer)``;
+
+export const SetupMessageText = styled(MessageText)`
+color: white;
 `;
 

@@ -5,7 +5,6 @@ export const GameContainer = styled.div`
   flex-direction: column;
   height: 100%;
   justify-content: space-around;
-  align-items: stretch;
   /* position: absolute; */
 `;
 
@@ -53,12 +52,13 @@ export const MessageTextContainer = styled.h2`
   display: flex;
   justify-content: center;
   position: relative;
+  width: 100%;
 `;
 
 export const MessageText = styled.h2`
   display: grid;
   font-family: 'Russo One', sans-serif;
-  font-size: 1rem;
+  font-size: 0.8rem;
   letter-spacing: 0.3rem;
   color: ${(props) => (props.statusMessageColor)};
   position: absolute;

@@ -2,14 +2,19 @@ import React, { useEffect, useState, useContext } from 'react';
 import ShipPlacementGameboard from './ShipPlacementGameboard';
 import * as Styled from './Setup.styles';
 import { store } from '../../StateProvider';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const Setup = () => {
   const { state, dispatch } = useContext(store);
   const playerGameboard = state.players.player.gameboard;
   const cpuGameboard = state.players.cpu.gameboard;
   const [orientation, setOrientation] = useState('xAxis');
-  const [hoveredGrids, setHoveredGrids] = useState([]);
+  const [selectedGrids, setSelectedGrids] = useState([]);
   const [ships, setShips] = useState(playerGameboard.shipTypes);
+  const [previouslyTouchedGrid, setPreviouslyTouchedGrid] = useState({
+    xCoord: null,
+    yCoord: null,
+  });
 
   const handleOnClick = ({ xCoord, yCoord }) => {
     const currentShip = ships[0].type;
@@ -35,7 +40,6 @@ const Setup = () => {
     } else {
       playerGameboard.placeShip(currentShip, xCoord, yCoord, orientation);
       if (ships.length > 1) {
-        console.log('staying in game window');
         const shipsCopy = [...ships];
         shipsCopy.shift();
         setShips(shipsCopy);
@@ -43,35 +47,60 @@ const Setup = () => {
         cpuGameboard.randomizeShipPlacement();
         console.log('changing game window');
         dispatch({ type: 'SET_GAMEWINDOW', payload: 'game' });
-        dispatch({ type: 'SET_TURN', payload: 'player'})
+        dispatch({ type: 'SET_TURN', payload: 'player' });
       }
     }
   };
 
-  const handleOnMouseEnter = ({ xCoord, yCoord }) => {
+  const handleOnTouch = (grid) => {
     if (ships.length < 1) {
       return;
     }
+    if (
+      grid.xCoord === previouslyTouchedGrid.xCoord &&
+      grid.yCoord === previouslyTouchedGrid.yCoord
+    ) {
+      handleOnClick(grid);
+    } else {
+      const selectedGrids = getSelectedGrids(grid);
+      setSelectedGrids(selectedGrids);
+      setPreviouslyTouchedGrid(grid);
+      dispatch({
+        type: 'SET_STATUS_MESSAGE',
+        payload: `TAP AGIAN TO PLACE YOUR ${ships[0].type.toUpperCase()}`,
+      });
+    }
+  };
+
+  const handleOnMouseEnter = (grid) => {
+    if (ships.length < 1) {
+      return;
+    }
+    const selectedGrids = getSelectedGrids(grid);
+    setSelectedGrids(selectedGrids);
+  };
+
+  const getSelectedGrids = ({ xCoord, yCoord }) => {
     const currentShipLength = ships[0].length;
-    const hovered = [];
+    const selected = [];
     if (orientation === 'xAxis') {
       for (let i = 0; i < currentShipLength; i++) {
-        hovered.push({ xCoord: xCoord + i, yCoord });
+        selected.push({ xCoord: xCoord + i, yCoord });
       }
     } else if (orientation === 'yAxis') {
       for (let i = 0; i < currentShipLength; i++) {
-        hovered.push({ xCoord: xCoord, yCoord: yCoord + i });
+        selected.push({ xCoord: xCoord, yCoord: yCoord + i });
       }
     }
-    setHoveredGrids(hovered);
+    return selected;
   };
 
-  const checkHoveredGrid = (grid) => {
+  const checkSelectedGrid = (grid) => {
     if (
-      hoveredGrids.some(
-        (hoveredGrid) =>
-          hoveredGrid.xCoord === grid.xCoord &&
-          hoveredGrid.yCoord === grid.yCoord
+      selectedGrids.some(
+        (selectedGrid) =>
+          selectedGrid.xCoord === grid.xCoord &&
+          selectedGrid.yCoord === grid.yCoord
       )
     ) {
       return true;
@@ -92,7 +121,10 @@ const Setup = () => {
 
   useEffect(() => {
     if (ships.length > 0) {
-      dispatch({type:'SET_STATUS_MESSAGE',payload: `PLACE YOUR ${ships[0].type.toUpperCase()}`});
+      dispatch({
+        type: 'SET_STATUS_MESSAGE',
+        payload: `PLACE YOUR ${ships[0].type.toUpperCase()}`,
+      });
     }
   }, [dispatch, ships]);
 
@@ -103,7 +135,6 @@ const Setup = () => {
       }
     }
     window.addEventListener('keyup', handleSpacebarKeyPress);
-
     return () => {
       window.removeEventListener('keyup', handleSpacebarKeyPress);
     };
@@ -111,13 +142,24 @@ const Setup = () => {
 
   return (
     <Styled.SetupContainer>
-      <Styled.MessageText>{state.statusMessage}</Styled.MessageText>
-    
+      <Styled.SetupMessageTextContainer>
+        <TransitionGroup component={null}>
+          <CSSTransition
+            key={state.statusMessage}
+            timeout={500}
+            classNames="css-transition-"
+          >
+            <Styled.SetupMessageText>{state.statusMessage}</Styled.SetupMessageText>
+          </CSSTransition>
+        </TransitionGroup>
+      </Styled.SetupMessageTextContainer>
       <ShipPlacementGameboard
-      handleOnClick={handleOnClick}
-      handleOnMouseEnter={handleOnMouseEnter}
-      checkHoveredGrid={checkHoveredGrid}></ShipPlacementGameboard>
-        <Styled.ToggleOrientationButton onClick={() => handleChangeOrientation()}>
+        handleOnClick={handleOnClick}
+        handleOnTouch={handleOnTouch}
+        handleOnMouseEnter={handleOnMouseEnter}
+        checkSelectedGrid={checkSelectedGrid}
+      ></ShipPlacementGameboard>
+      <Styled.ToggleOrientationButton onClick={() => handleChangeOrientation()}>
         {orientation === 'xAxis' ? 'X-AXIS (SPACEBAR)' : 'Y-AXIS (SPACEBAR)'}
       </Styled.ToggleOrientationButton>
     </Styled.SetupContainer>

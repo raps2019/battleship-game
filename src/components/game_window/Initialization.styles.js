@@ -2,7 +2,6 @@ import styled from 'styled-components/macro'
 import { Button } from '../../GlobalStyles'
 
 export const Form = styled.form`
-  position:relative;
   display: flex;
   flex-direction: column;
   align-items: center;
