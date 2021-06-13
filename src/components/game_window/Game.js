@@ -19,6 +19,7 @@ const Game = () => {
         gridAttacked.xCoord === grid.xCoord &&
         gridAttacked.yCoord === grid.yCoord
     );
+    
 
     if (attackedGrid.shipPresent) {
       if (attackedGrid.sunkShipPresent) {

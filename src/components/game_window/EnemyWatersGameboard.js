@@ -36,6 +36,8 @@ const EnemyWatersGameboard = (props) => {
             gridSunk={grid.sunkShipPresent ? true : false}
             gridIsAttacked={grid.isAttacked ? true : false}
             onClick={() => handleGridOnClick(grid)}
+            onTouchStart={() => grid.isAttacked === false ? handleGridOnClick(grid) : null}
+            onTouchEnd={(e) => e.preventDefault()}
             playerTurn={state.turn === 'player' ? true : false}
             disabled={grid.isAttacked ? true : null}
           ></Styled.Grid>
