@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import EnemyWatersGameboard from './EnemyWatersGameboard';
 import FriendlyWatersGameboard from './FriendlyWatersGameboard';
 import * as Styled from './Game.styles';
 import { store } from '../../StateProvider';
+import StatusMessage from './StatusMessage';
+
 
 const Game = () => {
   const { state, dispatch } = useContext(store);
@@ -27,7 +28,7 @@ const Game = () => {
         });
         dispatch({
           type: 'SET_STATUS_MESSAGE_COLOR',
-          payload: `red`,
+          payload: `darkred`,
         });
       } else {
         dispatch({
@@ -36,7 +37,7 @@ const Game = () => {
         });
         dispatch({
           type: 'SET_STATUS_MESSAGE_COLOR',
-          payload: `darkorange`,
+          payload: `orange`,
         });
       }
       dispatch({ type: 'SET_TURN', payload: null });
@@ -73,7 +74,7 @@ const Game = () => {
         });
         dispatch({
           type: 'SET_STATUS_MESSAGE_COLOR',
-          payload: `red`,
+          payload: `darkred`,
         });
       } else {
         dispatch({
@@ -150,20 +151,7 @@ const Game = () => {
 
   return (
     <Styled.GameContainer>
-      <Styled.MessageTextContainer>
-        <TransitionGroup
-        component={null}>
-          <CSSTransition
-            key={state.statusMessage}
-            timeout={500}
-            classNames="css-transition-"
-          >
-            <Styled.MessageText
-            statusMessageColor={state.statusMessageColor}>{state.statusMessage}</Styled.MessageText>
-          </CSSTransition>
-        </TransitionGroup>
-      </Styled.MessageTextContainer>
-
+      <StatusMessage></StatusMessage>
       <Styled.GameboardsContainer>
         <Styled.EnemyWatersContainer>
           <EnemyWatersGameboard

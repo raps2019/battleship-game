@@ -18,30 +18,95 @@ const Setup = () => {
     yCoord: null,
   });
 
+  const isWithinBoundaries = ({ xCoord, yCoord }) => {
+    if (
+      !playerGameboard.isShipWithinBoundaries(
+        ships[0].type,
+        xCoord,
+        yCoord,
+        orientation
+      )
+    ) {
+      const currentState = { currentMessage: state.statusMessage, currentMessageColor: state.statusMessageColor}
+      dispatch({
+        type: 'SET_STATUS_MESSAGE',
+        payload: `OUT OF BOUNDS`,
+      });
+      dispatch({
+        type: 'SET_STATUS_MESSAGE_COLOR',
+        payload: `orange`,
+      });
+      setTimeout( () => {
+        dispatch({
+          type: 'SET_STATUS_MESSAGE',
+          payload: `PLACE YOUR ${ships[0].type.toUpperCase()}`,
+        });
+        dispatch({
+          type: 'SET_STATUS_MESSAGE_COLOR',
+          payload: 'whitesmoke',
+        });
+      },2000)
+      return false;
+    } else {
+      return true;
+    }
+  };
+  
+  const isGridOccupied = ( {xCoord, yCoord}) => {
+
+    if (
+      playerGameboard.isShipAlreadyPresent(
+        ships[0].type,
+        xCoord,
+        yCoord,
+        orientation
+      ) === true){
+        const currentState = { currentMessage: state.statusMessage, currentMessageColor: state.statusMessageColor}
+        dispatch({
+          type: 'SET_STATUS_MESSAGE',
+          payload: `POSITION IS OCCUPIED`,
+        });
+        dispatch({
+          type: 'SET_STATUS_MESSAGE_COLOR',
+          payload: `orange`,
+        });
+        setTimeout( () => {
+          dispatch({
+            type: 'SET_STATUS_MESSAGE',
+            payload: `PLACE YOUR ${ships[0].type.toUpperCase()}`,
+          });
+          dispatch({
+            type: 'SET_STATUS_MESSAGE_COLOR',
+            payload: 'whitesmoke',
+          });
+        },2000)
+        return true;
+      } else {
+        return false;
+      }
+    }
+    
+  
+
   const handleOnClick = ({ xCoord, yCoord }) => {
     if (ships.length) {
       //Current ship to be placed is first ship in the array
       const currentShip = ships[0].type;
 
       //Check if placed ship will be within boundaries, or if ship is already present on grids.
-      if (
-        !playerGameboard.isShipWithinBoundaries(
-          currentShip,
-          xCoord,
-          yCoord,
-          orientation
-        )
-      ) {
-        alert('Out of bounds');
+      if (isWithinBoundaries( {xCoord, yCoord} ) === false) {
+        return
       } else if (
-        playerGameboard.isShipAlreadyPresent(
-          currentShip,
-          xCoord,
-          yCoord,
-          orientation
-        )
+        // playerGameboard.isShipAlreadyPresent(
+        //   currentShip,
+        //   xCoord,
+        //   yCoord,
+        //   orientation
+        // )
+        isGridOccupied( {xCoord, yCoord} ) === true
       ) {
-        alert('Cells occupied by Ship');
+        // alert('Cells occupied by Ship');
+        return;
       } else {
         //If placement is valid, place the ship.
         playerGameboard.placeShip(currentShip, xCoord, yCoord, orientation);
@@ -103,7 +168,7 @@ const Setup = () => {
         setPreviouslyTouchedGrid(grid);
         dispatch({
           type: 'SET_STATUS_MESSAGE',
-          payload: `TAP AGIAN TO PLACE YOUR ${ships[0].type.toUpperCase()}`,
+          payload: `TAP AGIAN TO CONFIRM YOUR ${ships[0].type.toUpperCase()} POSITION`,
         });
       }
     }

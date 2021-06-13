@@ -4,22 +4,27 @@ export const GameContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: space-around;
-  /* position: absolute; */
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
 export const GameboardsContainer = styled.div`
   display: flex;
-  /* flex-direction: row; */
-  flex-wrap: wrap;
   justify-content: space-evenly;
-  gap: 20px;
+  align-items: center;
+  width: 100%;
+
+  @media only screen and (max-device-width: 720px) {
+  flex-direction: column;
+  gap: 30px;
+}
 `;
 
 export const EnemyWatersContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  justify-content: center;
   align-items: center;
 
   width: 35vw;
@@ -40,10 +45,10 @@ export const FriendlyWatersContainer = styled(EnemyWatersContainer)`
 `;
 
 export const EnemyWatersHeading = styled.h2`
-  font-size: 0.7rem; 
-  font-family: 'Russo One', sans-serif;
-  letter-spacing: 0.3rem;
-  color: white;
+font-family: 'Cairo', sans-serif;
+font-size: 12px;
+letter-spacing: 0.3rem;
+color: whitesmoke;
 `;
 
 export const FriendlyWatersHeading = styled(EnemyWatersHeading)``;

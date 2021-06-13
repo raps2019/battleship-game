@@ -14,7 +14,9 @@ const StatusMessage = () => {
           timeout={250}
           classNames="css-transition-"
         >
-          <Styled.MessageText>{state.statusMessage}</Styled.MessageText>
+          <Styled.MessageText statusMessageColor={state.statusMessageColor}>
+            {state.statusMessage}
+          </Styled.MessageText>
         </CSSTransition>
       </TransitionGroup>
     </Styled.MessageTextContainer>

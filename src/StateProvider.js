@@ -9,7 +9,7 @@ const StateProvider = ({ children }) => {
     players: [],
     turn: '',
     statusMessage: 'test',
-    statusMessageColor: 'white'
+    statusMessageColor: 'whitesmoke'
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);

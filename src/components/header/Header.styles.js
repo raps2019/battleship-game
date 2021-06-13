@@ -13,7 +13,7 @@ export const HeaderTitle = styled.h1`
   font-weight: 400;
   font-size: 72px;
 
-  @media only screen and (min-device-width: 540px) and (max-device-width: 720px) {
+  @media only screen and (min-device-width: 480px) and (max-device-width: 720px) {
   font-size: 10vw;
 }
 
