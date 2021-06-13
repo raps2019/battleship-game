@@ -8,15 +8,10 @@ export const SetupContainer = styled.div`
   height: 100%;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
 `;
 
-export const ToggleOrientationButton = styled(Button)`
-  color: white;
-
-  &:hover {
-  }
-`;
+export const ToggleOrientationButton = styled(Button)``;
 
 export const SetupMessageTextContainer = styled(MessageTextContainer)``;
 

@@ -5,7 +5,7 @@ import * as Styled from './ShipPlacementGameboard.styles';
 
 const ShipPlacementGameboard = (props) => {
 
-  const { handleOnClick, handleOnTouch, handleOnMouseEnter, checkSelectedGrid } = props
+  const { handleOnClick, handleOnTouch, handleOnMouseEnter, checkIfSelected } = props
   const { state, dispatch } = useContext(store);
   const playerGameboard = state.players.player.gameboard;
 
@@ -28,7 +28,7 @@ const ShipPlacementGameboard = (props) => {
               onTouchEnd={(e) => e.preventDefault()}
               onMouseEnter={() => handleOnMouseEnter(grid)}
               gridOccupied={grid.shipPresent !== false ? true : null}
-              gridHovered={checkSelectedGrid(grid) ? true : null}
+              gridSelected={checkIfSelected(grid) ? true : null}
             ></Styled.Grid>
           </CSSTransition>
         ))}

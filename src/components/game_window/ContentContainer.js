@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { store } from '../../StateProvider';
 import { Initialization } from './Initialization';
-import * as Styled from './GameWindow.styles';
+import * as Styled from './ContentContainer.styles';
 import Setup from './Setup';
 import Game from './Game';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-const GameWindow = () => {
+const ContentContainer = () => {
   const { state } = useContext(store);
 
   const renderWindow = (gameWindow) => {
@@ -24,6 +24,7 @@ const GameWindow = () => {
       <TransitionGroup component={null}>
         <CSSTransition
           key={state.gameWindow}
+          appear={true}
           timeout={500}
           classNames="css-transition-"
         >
@@ -34,4 +35,4 @@ const GameWindow = () => {
   );
 };
 
-export default GameWindow;
+export default ContentContainer;

@@ -1,14 +1,15 @@
 import styled from 'styled-components/macro'
 
-export const FooterContainer = styled.div`
-  display: grid;
+export const FooterContainer = styled.footer`
+  display: flex;
   align-items: center;
-  justify-items: center;
+  justify-content: center;
 `;
 
-export const FooterText = styled.div`
+export const FooterText = styled.p`
   color: whitesmoke;
-  font-family: 'Istok Web', sans-serif;
-  letter-spacing: 0.1em;
-  font-size: 0.5em;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.3rem;
+  font-size: 12px;
   `

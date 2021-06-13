@@ -25,11 +25,12 @@ opacity: 0.25;
 /* background-color: ${props => props.gridColor}; */
 `
 export const Button = styled.button`
-  font-family: 'Russo One', sans-serif;
-  letter-spacing: 5px;
-  /* font-size: 1.5rem; */
+  font-family: 'Cairo', sans-serif;
+  letter-spacing: 0.3rem;
+  font-size: 16px;
+  font-weight: 700;
 	padding: 5px 25px;
-	color: white;
+	color: black;
   box-shadow: 0 0 15px 5px transparent;
 	border: 1px solid transparent;
   border-radius: 0.5rem;
@@ -39,7 +40,8 @@ export const Button = styled.button`
 
 &:hover {
 	background: none;
-	box-shadow: 0 0 15px 5px darkorange;
+  color: whitesmoke;
+	box-shadow: 0 0px 20px 5px darkorange;
 	border: 1px solid darkorange;
 }
 `

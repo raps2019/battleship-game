@@ -1,26 +1,24 @@
 import styled from 'styled-components/macro'
 
-export const HeaderContainer = styled.div`
-display: grid;
+export const HeaderContainer = styled.header`
+display: flex;
 align-items: center;
-justify-items: center;
+justify-content: center;
 `
 
-export const HeaderTitle = styled.div`
+export const HeaderTitle = styled.h1`
   color: darkorange;
   font-family: 'Black Ops One', cursive;
   letter-spacing: 0.1em;
-  font-size: 6rem;
+  font-weight: 400;
+  font-size: 72px;
 
-  @media only screen and (min-device-width: 540px) and (max-device-width: 1024px) {
-  font-size: 4rem;
+  @media only screen and (min-device-width: 540px) and (max-device-width: 720px) {
+  font-size: 10vw;
 }
 
-@media only screen and (min-device-width: 320px) and (max-device-width: 540px) {
-  font-size: 3rem;
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  font-size: 48px;
 }
-
-
-  
 `
 

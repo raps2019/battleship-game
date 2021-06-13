@@ -24,14 +24,14 @@ export const Grid = styled(GameboardGrid)`
   cursor: ${(props) => (props.gridOccupied ? 'not-allowed' : 'pointer')};
 
   opacity: ${(props) => (props.gridOccupied === true ? '0.5' : null)};
-  opacity: ${(props) => (props.gridHovered === true ? '0.1' : null)};
+  opacity: ${(props) => (props.gridSelected === true ? '0.1' : null)};
   opacity: ${(props) =>
-    props.gridOccupied === true && props.gridHovered === true ? '0.5' : null};
+    props.gridOccupied === true && props.gridSelected === true ? '0.5' : null};
 
-  background: ${(props) => (props.gridHovered === true ? 'white' : null)};
+  background: ${(props) => (props.gridSelected === true ? 'white' : null)};
   background: ${(props) => (props.gridOccupied === true ? '#8F8F88' : null)};
   background: ${(props) =>
-    props.gridOccupied === true && props.gridHovered === true
+    props.gridOccupied === true && props.gridSelected === true
       ? ' #8F8F88'
       : null};
   transition: all 1000ms cubic-bezier(0.33, 1, 0.68, 1);
