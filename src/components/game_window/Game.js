@@ -70,7 +70,7 @@ const Game = () => {
       if (attackedGrid.sunkShipPresent) {
         dispatch({
           type: 'SET_STATUS_MESSAGE',
-          payload: `CPU SUNK YOUR ${attackedGrid.shipPresent.toUpperCase()}`,
+          payload: `ENEMY SUNK YOUR ${attackedGrid.shipPresent.toUpperCase()}`,
         });
         dispatch({
           type: 'SET_STATUS_MESSAGE_COLOR',
@@ -79,7 +79,7 @@ const Game = () => {
       } else {
         dispatch({
           type: 'SET_STATUS_MESSAGE',
-          payload: `CPU HIT YOUR ${attackedGrid.shipPresent.toUpperCase()}`,
+          payload: `ENEMY HIT YOUR ${attackedGrid.shipPresent.toUpperCase()}`,
         });
         dispatch({
           type: 'SET_STATUS_MESSAGE_COLOR',
@@ -87,7 +87,7 @@ const Game = () => {
         });
       }
     } else {
-      dispatch({ type: 'SET_STATUS_MESSAGE', payload: `CPU MISSED` });
+      dispatch({ type: 'SET_STATUS_MESSAGE', payload: `ENEMY MISSED` });
     }
 
     if (player.gameboard.shipsStillActive()) {
@@ -96,7 +96,7 @@ const Game = () => {
         dispatch({ type: 'SET_TURN', payload: 'player' });
       }, 2000);
     } else {
-      dispatch({ type: 'SET_STATUS_MESSAGE', payload: `CPU WINS` });
+      dispatch({ type: 'SET_STATUS_MESSAGE', payload: `ENEMY WINS` });
     }
   };
 
@@ -105,7 +105,7 @@ const Game = () => {
       if (cpu.gameboard.shipsStillActive()) {
         dispatch({
           type: 'SET_STATUS_MESSAGE',
-          payload: `CPU IS ATTACKING`,
+          payload: `ENEMY IS ATTACKING`,
         });
         dispatch({
           type: 'SET_STATUS_MESSAGE_COLOR',

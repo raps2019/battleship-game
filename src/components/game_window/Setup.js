@@ -168,7 +168,7 @@ const Setup = () => {
         setPreviouslyTouchedGrid(grid);
         dispatch({
           type: 'SET_STATUS_MESSAGE',
-          payload: `TAP AGIAN TO CONFIRM YOUR ${ships[0].type.toUpperCase()} POSITION`,
+          payload: `TAP SQUARE AGAIN TO CONFIRM YOUR ${ships[0].type.toUpperCase()} POSITION`,
         });
       }
     }

@@ -9,14 +9,14 @@ import { GameboardContainer, GameboardGrid, Button } from '../../GlobalStyles';
 export const Gameboard = styled(GameboardContainer)`
   width: 40vw;
   height: 40vw;
-  min-width: 300px;
-  min-height: 300px;
+  min-width: 400px;
+  min-height: 400px;
   
   
-/* @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-  width: 95vw;
-  height: 95vw;
-} */
+@media only screen and (min-device-width: 320px) and (max-device-width: 410px) {
+  min-width: 370px;
+  min-height: 370px;
+}
 
 `;
 
