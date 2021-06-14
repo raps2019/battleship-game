@@ -34,7 +34,7 @@ describe('gameboard factory functions', () => {
     expect(testGameboard.isShipWithinBoundaries('carrier', 1, 4, 'yAxis')).toBe(
       true
     );
-    expect(testGameboard.isShipWithinBoundaries('carrier', 1, 6, 'yAxis')).toBe(
+    expect(testGameboard.isShipWithinBoundaries('carrier', 1, 7, 'yAxis')).toBe(
       false
     );
     expect(
