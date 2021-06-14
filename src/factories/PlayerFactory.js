@@ -147,8 +147,8 @@ const PlayerFactory = (name) => {
     } else if (damagedGrids.length > 0) {
       const soloTargetChoices = [
         { xCoord: damagedGrids[0].xCoord - 1, yCoord: damagedGrids[0].yCoord },
-        { xCoord: damagedGrids[0].xCoord + 1, yCoord: damagedGrids[0].yCoord },
         { xCoord: damagedGrids[0].xCoord, yCoord: damagedGrids[0].yCoord - 1 },
+        { xCoord: damagedGrids[0].xCoord + 1, yCoord: damagedGrids[0].yCoord },
         { xCoord: damagedGrids[0].xCoord, yCoord: damagedGrids[0].yCoord + 1 },
       ];
 
