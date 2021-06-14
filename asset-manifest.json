@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/battleship-game/static/js/main.eb370cad.chunk.js",
-    "main.js.map": "/battleship-game/static/js/main.eb370cad.chunk.js.map",
+    "main.js": "/battleship-game/static/js/main.d696715f.chunk.js",
+    "main.js.map": "/battleship-game/static/js/main.d696715f.chunk.js.map",
     "runtime-main.js": "/battleship-game/static/js/runtime-main.b77a8ba9.js",
     "runtime-main.js.map": "/battleship-game/static/js/runtime-main.b77a8ba9.js.map",
     "static/js/2.34ce1c16.chunk.js": "/battleship-game/static/js/2.34ce1c16.chunk.js",
@@ -14,6 +14,6 @@
   "entrypoints": [
     "static/js/runtime-main.b77a8ba9.js",
     "static/js/2.34ce1c16.chunk.js",
-    "static/js/main.eb370cad.chunk.js"
+    "static/js/main.d696715f.chunk.js"
   ]
 }
