@@ -23,7 +23,7 @@ export const Initialization = () => {
 
     //Initialize player and cpu Player Factory Functions
     const player = PlayerFactory(playerName);
-    const cpu = PlayerFactory('CPU');
+    const cpu = PlayerFactory('enemy');
 
     dispatch({ type: 'SET_PLAYERS', payload: { player, cpu } });
     dispatch({ type: 'SET_GAMEWINDOW', payload: 'setup' });

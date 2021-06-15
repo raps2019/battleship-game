@@ -4,6 +4,7 @@ import FriendlyWatersGameboard from './FriendlyWatersGameboard';
 import * as Styled from './Game.styles';
 import { store } from '../../StateProvider';
 import StatusMessage from './StatusMessage';
+import ShipTracker from './ShipTracker';
 
 
 const Game = () => {
@@ -153,6 +154,12 @@ const Game = () => {
   return (
     <Styled.GameContainer>
       <StatusMessage></StatusMessage>
+      <Styled.ShipTrackerContainer>
+      <ShipTracker
+      player={cpu}></ShipTracker>
+            <ShipTracker
+      player={player}></ShipTracker>
+      </Styled.ShipTrackerContainer>
       <Styled.GameboardsContainer>
         <Styled.EnemyWatersContainer>
           <EnemyWatersGameboard
