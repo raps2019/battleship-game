@@ -5,7 +5,6 @@ const ShipTracker = (props) => {
   const { player } = props;
 
   const gameboard = player.gameboard;
-  console.log(player.name);
 
   return (
     <Styled.Container>
@@ -20,6 +19,7 @@ const ShipTracker = (props) => {
               <Styled.Square
                 sectorHit={sector.hit}
                 shipSunk={ship.isSunk()}
+                showHits={player.name === 'enemy' ? false : true}
               ></Styled.Square>
             ))}
           </Styled.SquaresContainer>

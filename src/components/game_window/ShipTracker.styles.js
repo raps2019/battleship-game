@@ -24,7 +24,7 @@ gap: 5px;
 export const Square = styled.div`
 height: 10px;
 width: 10px;
-background-color: ${(props) => (props.sectorHit === true ? 'red' : 'white')};
+background-color: ${(props) => ( props.showHits === true && props.sectorHit === true ? 'red' : 'white')};
 background-color: ${(props) => (props.shipSunk === true ? 'maroon' : null)};
 opacity: 0.6;
 `

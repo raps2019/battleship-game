@@ -1,18 +1,26 @@
 import styled from 'styled-components/macro';
+import { Button } from '../../GlobalStyles';
 
 export const GameContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-auto-flow: row;
+  width: 100%;
   height: 100%;
-  justify-content: space-evenly;
+  justify-items: center;
+  grid-template-rows: auto auto auto;
   align-items: center;
-`;
+  `;
 
-export const ShipTrackerContainer = styled.div`
+export const HorizontalShipTrackerContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
   width: 100%;
+`
+
+export const VerticalShipTrackerContainer = styled(HorizontalShipTrackerContainer)`
+flex-direction: column;
+gap: 50px;
 `
 
 export const GameboardsContainer = styled.div`
@@ -23,7 +31,7 @@ export const GameboardsContainer = styled.div`
 
   @media only screen and (max-device-width: 720px) {
   flex-direction: column;
-  gap: 30px;
+  /* gap: 30px; */
 }
 `;
 
@@ -114,3 +122,5 @@ export const MessageText = styled.h2`
     opacity: 0;
   }
 `;
+
+export const ToggleShipStatusButton = styled(Button)``

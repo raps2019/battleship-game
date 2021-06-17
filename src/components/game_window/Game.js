@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState, useEffect, setState } from 'react';
 import EnemyWatersGameboard from './EnemyWatersGameboard';
 import FriendlyWatersGameboard from './FriendlyWatersGameboard';
 import * as Styled from './Game.styles';
@@ -6,11 +6,11 @@ import { store } from '../../StateProvider';
 import StatusMessage from './StatusMessage';
 import ShipTracker from './ShipTracker';
 
-
 const Game = () => {
   const { state, dispatch } = useContext(store);
   const player = state.players.player;
   const cpu = state.players.cpu;
+  const [showShipStatus, setShowShipStatus] = useState(false);
 
   const handleGridOnClick = (gridAttacked) => {
     player.attack(gridAttacked.xCoord, gridAttacked.yCoord, cpu.gameboard);
@@ -20,7 +20,6 @@ const Game = () => {
         gridAttacked.xCoord === grid.xCoord &&
         gridAttacked.yCoord === grid.yCoord
     );
-    
 
     if (attackedGrid.shipPresent) {
       if (attackedGrid.sunkShipPresent) {
@@ -115,11 +114,6 @@ const Game = () => {
         });
         setTimeout(() => {
           handleCpuAttack();
-          // dispatch({
-          //   type: 'SET_STATUS_MESSAGE',
-          //   payload: `${player.name}'S TURN TO ATTACK`,
-          // });
-          // dispatch({ type: 'SET_TURN', payload: 'player' });
         }, 2500);
       }
     } else if (state.turn === 'player') {
@@ -134,46 +128,78 @@ const Game = () => {
     }
   }, [state.turn]);
 
-  // useEffect(() => {
-  //   dispatch({
-  //     type: 'SET_STATUS_MESSAGE',
-  //     payload: `${player.name}'S TURN TO ATTACK`,
-  //   });
-  // }, []);
+  const useWindowSize = () => {
+    const [windowSize, setWindowSize] = useState({
+      width: undefined,
+      height: undefined,
+    });
 
-  // useEffect(() => {
-  //   if (cpu.gameboard.shipsStillActive()) {
-  //     setTimeout(() => {
-  //       handleCpuAttack();
-  //     }, 2000)
-  //   } else {
-  //     dispatch({ type: 'SET_STATUS_MESSAGE', payload: `YOU WIN` });
-  //   }
-  // }[state.turn]);
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      handleResize();
+
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return windowSize;
+  };
+
+  const handleToggleShipStatusButtonClick = () => {
+    if (showShipStatus === true) {
+      setShowShipStatus(false);
+    } else if (showShipStatus === false) {
+      setShowShipStatus(true);
+    }
+  };
 
   return (
     <Styled.GameContainer>
       <StatusMessage></StatusMessage>
-      <Styled.ShipTrackerContainer>
-      <ShipTracker
-      player={cpu}></ShipTracker>
-            <ShipTracker
-      player={player}></ShipTracker>
-      </Styled.ShipTrackerContainer>
-      <Styled.GameboardsContainer>
-        <Styled.EnemyWatersContainer>
-          <EnemyWatersGameboard
-            handleGridOnClick={handleGridOnClick}
-          ></EnemyWatersGameboard>
-          <Styled.EnemyWatersHeading>ENEMY WATERS</Styled.EnemyWatersHeading>
-        </Styled.EnemyWatersContainer>
-        <Styled.FriendlyWatersContainer>
-          <FriendlyWatersGameboard></FriendlyWatersGameboard>
-          <Styled.FriendlyWatersHeading>
-            FRIENDLY WATERS
-          </Styled.FriendlyWatersHeading>
-        </Styled.FriendlyWatersContainer>
-      </Styled.GameboardsContainer>
+
+      {useWindowSize().width > 720 ? (
+        <Styled.HorizontalShipTrackerContainer>
+          <ShipTracker player={cpu}></ShipTracker>
+          <ShipTracker player={player}></ShipTracker>
+        </Styled.HorizontalShipTrackerContainer>
+      ) : null}
+
+      {useWindowSize().width < 720 ? (
+        <Styled.ToggleShipStatusButton
+          onClick={handleToggleShipStatusButtonClick}
+        >
+          {showShipStatus === true ? 'BACK' : 'SHIPS'}
+        </Styled.ToggleShipStatusButton>
+      ) : null}
+
+      {showShipStatus === true ? (
+        <Styled.VerticalShipTrackerContainer>
+          <ShipTracker player={cpu}></ShipTracker>
+          <ShipTracker player={player}></ShipTracker>
+        </Styled.VerticalShipTrackerContainer>
+      ) : (
+        <Styled.GameboardsContainer>
+          <Styled.EnemyWatersContainer>
+            <EnemyWatersGameboard
+              handleGridOnClick={handleGridOnClick}
+            ></EnemyWatersGameboard>
+            <Styled.EnemyWatersHeading>ENEMY WATERS</Styled.EnemyWatersHeading>
+          </Styled.EnemyWatersContainer>
+          <Styled.FriendlyWatersContainer>
+            <FriendlyWatersGameboard></FriendlyWatersGameboard>
+            <Styled.FriendlyWatersHeading>
+              FRIENDLY WATERS
+            </Styled.FriendlyWatersHeading>
+          </Styled.FriendlyWatersContainer>
+        </Styled.GameboardsContainer>
+      )}
     </Styled.GameContainer>
   );
 };
