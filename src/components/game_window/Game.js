@@ -172,34 +172,40 @@ const Game = () => {
       ) : null}
 
       {useWindowSize().width < 720 ? (
-        <Styled.ToggleShipStatusButton
-          onClick={handleToggleShipStatusButtonClick}
-        >
-          {showShipStatus === true ? 'BACK' : 'SHIPS'}
-        </Styled.ToggleShipStatusButton>
+        <Styled.ButtonContainer>
+          <Styled.ToggleShipStatusButton
+            onClick={handleToggleShipStatusButtonClick}
+          >
+            {showShipStatus === true ? 'BACK' : 'SHIPS'}
+          </Styled.ToggleShipStatusButton>
+        </Styled.ButtonContainer>
       ) : null}
-
-      {showShipStatus === true ? (
-        <Styled.VerticalShipTrackerContainer>
-          <ShipTracker player={cpu}></ShipTracker>
-          <ShipTracker player={player}></ShipTracker>
-        </Styled.VerticalShipTrackerContainer>
-      ) : (
-        <Styled.GameboardsContainer>
-          <Styled.EnemyWatersContainer>
-            <EnemyWatersGameboard
-              handleGridOnClick={handleGridOnClick}
-            ></EnemyWatersGameboard>
-            <Styled.EnemyWatersHeading>ENEMY WATERS</Styled.EnemyWatersHeading>
-          </Styled.EnemyWatersContainer>
-          <Styled.FriendlyWatersContainer>
-            <FriendlyWatersGameboard></FriendlyWatersGameboard>
-            <Styled.FriendlyWatersHeading>
-              FRIENDLY WATERS
-            </Styled.FriendlyWatersHeading>
-          </Styled.FriendlyWatersContainer>
-        </Styled.GameboardsContainer>
-      )}
+      <Styled.ContentContainer> 
+      {/* Add transition here */}
+        {useWindowSize().width < 720 && showShipStatus === true ? (
+          <Styled.VerticalShipTrackerContainer>
+            <ShipTracker player={cpu}></ShipTracker>
+            <ShipTracker player={player}></ShipTracker>
+          </Styled.VerticalShipTrackerContainer>
+        ) : (
+          <Styled.GameboardsContainer>
+            <Styled.EnemyWatersContainer>
+              <EnemyWatersGameboard
+                handleGridOnClick={handleGridOnClick}
+              ></EnemyWatersGameboard>
+              <Styled.EnemyWatersHeading>
+                ENEMY WATERS
+              </Styled.EnemyWatersHeading>
+            </Styled.EnemyWatersContainer>
+            <Styled.FriendlyWatersContainer>
+              <FriendlyWatersGameboard></FriendlyWatersGameboard>
+              <Styled.FriendlyWatersHeading>
+                FRIENDLY WATERS
+              </Styled.FriendlyWatersHeading>
+            </Styled.FriendlyWatersContainer>
+          </Styled.GameboardsContainer>
+        )}
+      </Styled.ContentContainer>
     </Styled.GameContainer>
   );
 };
